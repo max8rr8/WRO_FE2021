@@ -8,7 +8,6 @@ import atexit
 KP = 0.7
 KD = 0.5
 ROUNDER = 1000
-DISTANCE = 500
 
 LEFT90_MANEUVER = (-40,  5000)
 RIGHT90_MANEUVER = (40, 3832)
@@ -84,6 +83,11 @@ def detect_object(name, img, bin_min, bin_max, area_min, show=True):
     return contour, (area, cx, cy)
 
 
+WALL_MODE_LEFT = False
+WALL_MODE_RIGHT = True
+wall_mode = WALL_MODE_LEFT
+distance = 500
+
 def wall():
     global errold
     l,r = hardware.read_sensors()
@@ -91,10 +95,13 @@ def wall():
 
     r = round(r / ROUNDER) * ROUNDER
 
-    err = (r - DISTANCE) 
-    print("A:", l, r, err)
-    # if math.fabs(err) < 2000:
-    #     err = 0
+    if wall_mode == WALL_MODE_RIGHT:
+        err = (r - distance) 
+    else:
+        err = (distance - l)
+
+
+    # print("A:", l, r, err)
 
     u = KP * err + KD * (err - errold)
     errold = err
@@ -132,6 +139,7 @@ while True:
 
     # blue_line_stop = blue_line[0] is not None
     # print(wall_forward)
+    
     if not False:
         if 0 == 0:
             wall()
