@@ -158,7 +158,7 @@ hsv_area = [(0, 0), (0, 0)]
 
 
 def detection_buttons():
-  img = np.zeros((80, 1024, 3))
+  img = np.zeros((80, 880, 3))
 
   p = 128
 
@@ -176,7 +176,7 @@ def detection_buttons():
 
     p += 256
 
-    if p < 1024:
+    if p < 880:
       cv2.line(img, (p - 128, 0), (p - 128, 128), c, 2)
 
   img[78:80, :] = (0, 255, 0)

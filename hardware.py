@@ -1,5 +1,5 @@
 REAL_HARDWARE = True
-RECORD_VIDEO = False
+RECORD_VIDEO = True
 
 SERVO_PIN = 13
 MOTOR_PIN = 18
@@ -45,7 +45,7 @@ if REAL_HARDWARE:
   GPIO.output(26, 0)
   GPIO.output(16, 0)
   time.sleep(0.1)
-
+  """
   GPIO.output(26, 1)
   time.sleep(1)
   tof1 = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
@@ -63,14 +63,14 @@ if REAL_HARDWARE:
 
   tof2.set_user_roi(VL53L1X.VL53L1xUserRoi(6, 9, 9, 6))
   tof1.set_user_roi(VL53L1X.VL53L1xUserRoi(6, 9, 9, 6))
+  
+  # tof1.set_timing(66000, 70)
+  # tof2.set_timing(66000, 70)
 
-  tof1.set_timing(66000, 70)
-  tof2.set_timing(66000, 70)
+  tof2.start_ranging(1)
+  tof1.start_ranging(1)
 
-  tof2.start_ranging(0)
-  tof1.start_ranging(0)
-
-
+  """
   def forward(speed=1):
     wiringpi.pwmWrite(MOTOR_PIN, int(BASE_SPEED * speed))
 
@@ -118,13 +118,17 @@ if REAL_HARDWARE:
     if not flag:
       return flag, None
 
+
+    img =  img[:, :440]
+
     if show:
       cv2.imshow('img', img)
 
     if RECORD_VIDEO:
       out.write(img)
+    
 
-    return flag, img
+    return flag, img 
 
 
 

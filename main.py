@@ -5,11 +5,15 @@ import time
 import hardware
 import atexit
 
-KP = 0.7
-KD = 0.5
-ROUNDER = 1000
+direction_mode = False  # True - clockwise, False - counter clock wise
 
-LEFT90_MANEUVER = (-40,  5000)
+KP = 3
+KD = 1
+ROUNDER = 1
+CW_POINT = 105
+CCW_POINT = 105
+
+LEFT90_MANEUVER = (-40, 5000)
 RIGHT90_MANEUVER = (40, 3832)
 
 RIGHT_WALL = (452, 4000)
@@ -85,42 +89,64 @@ def detect_object(name, img, bin_min, bin_max, area_min, show=True):
 
 WALL_MODE_LEFT = False
 WALL_MODE_RIGHT = True
-wall_mode = WALL_MODE_LEFT
-distance = 500
+wall_mode = WALL_MODE_RIGHT
+distance = 740
 
-def wall():
-    global errold
-    l,r = hardware.read_sensors()
+current_point = 0
 
 
-    r = round(r / ROUNDER) * ROUNDER
-
-    if wall_mode == WALL_MODE_RIGHT:
-        err = (r - distance) 
+def wall(img):
+    if direction_mode:
+        img = img[120:280, :80]
     else:
-        err = (distance - l)
+        img = img[120:280, -80:]
 
+    binarized = binarize(img=img, bin_min=(0, 0, 0), bin_max=(255, 255, 60))
 
-    # print("A:", l, r, err)
+    debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
 
+    lowest_points = np.argmax(binarized[::-1], axis=0)
+    lowest_point = binarized.shape[0] - np.average(lowest_points)
+
+    cv2.line(debug, (0, int(lowest_point)), (80, int(lowest_point)),
+             (0, 255, 0), 2)
+    cv2.imshow("Wall", debug)
+
+    global errold
+    print(lowest_point)
+    err = lowest_point - current_point
     u = KP * err + KD * (err - errold)
     errold = err
 
-    hardware.steer(u)
+    hardware.steer(u if direction_mode else -u)
 
 
 has_rotated = False
+"""
+object_name = detect_object(name="object_name",
+                            img=img[74:187, 2:72],
+                            bin_min=(0, 0, 0),
+                            bin_max=(255, 255, 32),
+                            area_min=0)
+"""
 
 while True:
     start_time = time.time()
-    # flag, img = hardware.get_frame()
+    flag, img = hardware.get_frame()
+    # img = cv2.flip(img, 1)
     # if not flag: break
 
-    # blue_line = detect_object(name="blue_line",
-    #                           img=img[242:348, 74:285],
-    #                           bin_min=(98, 66, 67),
-    #                           bin_max=(149, 177, 166),
-    #                           area_min=300)
+    red_marker = detect_object(name="red_marker",
+                               img=img[210:384, 0:171],
+                               bin_min=(0, 80, 80),
+                               bin_max=(23, 255, 255),
+                               area_min=1925)
+
+    green_marker = detect_object(name="green_marker",
+                                 img=img[239:384, 272:512],
+                                 bin_min=(47, 168, 50),
+                                 bin_max=(96, 255, 252),
+                                 area_min=3000)
 
     # orange_line = detect_object(name="orange_line",
     #                             img=img[300:384, 0:512],
@@ -128,33 +154,37 @@ while True:
     #                             bin_max=(255, 255, 255),
     #                             area_min=300)
 
-    # green = detect_object(name="green",
-    #                       img=img[14:102, 321:396],
-    #                       bin_min=(64, 227, 13),
-    #                       bin_max=(90, 255, 39),
-    #                       area_min=300)
-
     # if green[0] is not None:
     #     print(green[1])
 
     # blue_line_stop = blue_line[0] is not None
     # print(wall_forward)
-    
-    if not False:
-        if 0 == 0:
-            wall()
-            hardware.forward()
-            print("STATUS: RIDING_WALL")
-        else:
-            hardware.stop()
+    if red_marker[0] is not None:
+        point_shift = -15
+    elif green_marker[0] is not None:
+        point_shift = +15
+    else:
+        point_shift = 0
 
-            print("Starting maneuver")
-            time.sleep(5)
-            print('Wowo!')
-            maneuver(*LEFT90_MANEUVER)
-            hardware.stop_center()
-            has_rotated = True
-        # time.sleep(600)
+    if direction_mode:
+        current_point = CW_POINT + point_shift
+
+    else:
+        current_point = CCW_POINT - point_shift
+
+    if 0 == 0:
+        wall(img)
+        hardware.forward()
+        print("STATUS: RIDING_WALL")
+    else:
+        hardware.stop()
+
+        print("Starting maneuver")
+        time.sleep(5)
+        print('Wowo!')
+        maneuver(*LEFT90_MANEUVER)
+        hardware.stop_center()
+        has_rotated = True
 
     ch = cv2.waitKey(5)
     if ch == 27:
