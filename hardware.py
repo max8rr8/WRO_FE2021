@@ -15,7 +15,7 @@ if REAL_HARDWARE:
   import RPi.GPIO as GPIO
   import wiringpi
   import cv2
-
+  import numpy as np
   import VL53L1X
   import time
 
@@ -120,6 +120,16 @@ if REAL_HARDWARE:
 
 
     img =  img[:, :440]
+    # cv2.imshow("pre", img)
+    for i in range(3):
+      normalization = img[:, 200:280, i]
+      mi = np.min(normalization)
+      ma = np.max(normalization)
+
+      im = img[:, :, i].astype(np.float32)  - mi
+      im /= ma - mi
+      im = np.clip(im, 0, 1)
+      img[:, :, i] = (im * 255).astype(np.uint8)
 
     if show:
       cv2.imshow('img', img)

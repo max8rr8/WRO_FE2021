@@ -5,13 +5,15 @@ import time
 import hardware
 import atexit
 
-direction_mode = False  # True - clockwise, False - counter clock wise
+ENABLE_MOTORS = True
 
-KP = 3
-KD = 1
+direction_mode = True  # True - clockwise, False - counter clock wise
+
+KP = 1
+KD = 0
 ROUNDER = 1
-CW_POINT = 105
-CCW_POINT = 105
+CW_POINT = 120
+CCW_POINT = 120
 
 LEFT90_MANEUVER = (-40, 5000)
 RIGHT90_MANEUVER = (40, 3832)
@@ -94,9 +96,8 @@ distance = 740
 
 current_point = 0
 
-
-def wall(img):
-    if direction_mode:
+def find_wall(img, mode):
+    if mode:
         img = img[120:280, :80]
     else:
         img = img[120:280, -80:]
@@ -111,6 +112,11 @@ def wall(img):
     cv2.line(debug, (0, int(lowest_point)), (80, int(lowest_point)),
              (0, 255, 0), 2)
     cv2.imshow("Wall", debug)
+
+    return lowest_point
+
+def wall(img):
+    lowest_point = find_wall(img, direction_mode)
 
     global errold
     print(lowest_point)
@@ -129,6 +135,16 @@ object_name = detect_object(name="object_name",
                             bin_max=(255, 255, 32),
                             area_min=0)
 """
+cw_conf, ccw_conf = 0, 0
+for i in range(5):
+
+    flag, img = hardware.get_frame()
+    cw_conf += find_wall(img, True)
+    ccw_conf += find_wall(img, False)
+    cv2.waitKey(10)
+print(cw_conf, ccw_conf)
+# direction_mode = cw_conf > ccw_conf
+time.sleep(1)
 
 while True:
     start_time = time.time()
@@ -138,21 +154,21 @@ while True:
 
     red_marker = detect_object(name="red_marker",
                                img=img[210:384, 0:171],
-                               bin_min=(0, 80, 80),
-                               bin_max=(23, 255, 255),
-                               area_min=1925)
+                               bin_min=(0, 80, 100),
+                               bin_max=(255, 255, 255),
+                               area_min=100)
 
     green_marker = detect_object(name="green_marker",
                                  img=img[239:384, 272:512],
                                  bin_min=(47, 168, 50),
                                  bin_max=(96, 255, 252),
-                                 area_min=3000)
+                                 area_min=100)
 
-    # orange_line = detect_object(name="orange_line",
-    #                             img=img[300:384, 0:512],
-    #                             bin_min=(90, 0, 0),
-    #                             bin_max=(255, 255, 255),
-    #                             area_min=300)
+    main_line = detect_object(name="main_line",
+                            img=img[316:382, 188:256],
+                            bin_min=(0, 60, 60),
+                            bin_max=(255, 255, 255),
+                            area_min=300)
 
     # if green[0] is not None:
     #     print(green[1])
@@ -160,9 +176,9 @@ while True:
     # blue_line_stop = blue_line[0] is not None
     # print(wall_forward)
     if red_marker[0] is not None:
-        point_shift = -15
+        point_shift = -10
     elif green_marker[0] is not None:
-        point_shift = +15
+        point_shift = +10
     else:
         point_shift = 0
 
@@ -172,9 +188,15 @@ while True:
     else:
         current_point = CCW_POINT - point_shift
 
+    if main_line[0] is not None:
+        print("SEEN LINE")
+        hardware.stop_center()
+        exit()
+
     if 0 == 0:
         wall(img)
-        hardware.forward()
+        if ENABLE_MOTORS:
+            hardware.forward()
         print("STATUS: RIDING_WALL")
     else:
         hardware.stop()
