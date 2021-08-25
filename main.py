@@ -7,16 +7,16 @@ import atexit
 
 ENABLE_MOTORS = True
 
-direction_mode = True  # True - clockwise, False - counter clock wise
+direction_mode = False  # True - clockwise, False - counter clock wise
 
-KP = 1
-KD = 0
+KP = 1.5
+KD = 1
 ROUNDER = 1
-CW_POINT = 120
-CCW_POINT = 120
+CW_POINT = 140
+CCW_POINT = 140
 
-LEFT90_MANEUVER = (-40, 5000)
-RIGHT90_MANEUVER = (40, 3832)
+LEFT90_MANEUVER = (-40, 5500)
+RIGHT90_MANEUVER = (45, 5500)
 
 RIGHT_WALL = (452, 4000)
 LEFT_WALL = (0, 4000)
@@ -33,14 +33,21 @@ atexit.register(hardware.close_all)
 def maneuver(angle, encoder_ticks):
     hardware.steer(angle)
     start_tick = hardware.read_encoder()
-
+    cnt = 0
     while True:
-        hardware.forward()
+        if ENABLE_MOTORS:
+            hardware.forward()
         time.sleep(0.07)
         current_tick = hardware.read_encoder()
+        print(abs(current_tick - start_tick))
+        if cnt == 0:
+            hardware.get_frame()
+        cnt = (cnt + 1) % 10
+
         if abs(current_tick - start_tick) > encoder_ticks:
+            hardware.get_frame()
             break
-    hardware.stop_center()
+    # hardware.stop_center()
 
 
 def binarize(img, bin_min, bin_max):
@@ -96,13 +103,14 @@ distance = 740
 
 current_point = 0
 
+
 def find_wall(img, mode):
     if mode:
         img = img[120:280, :80]
     else:
         img = img[120:280, -80:]
 
-    binarized = binarize(img=img, bin_min=(0, 0, 0), bin_max=(255, 255, 60))
+    binarized = binarize(img=img, bin_min=(0, 0, 0), bin_max=(255, 160, 100))
 
     debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
 
@@ -115,6 +123,7 @@ def find_wall(img, mode):
 
     return lowest_point
 
+
 def wall(img):
     lowest_point = find_wall(img, direction_mode)
 
@@ -125,6 +134,21 @@ def wall(img):
     errold = err
 
     hardware.steer(u if direction_mode else -u)
+
+
+def normalize(img):
+    img = img.copy()
+    for i in range(3):
+        normalization = img[:, :, i]
+        mi = np.min(normalization)
+        ma = np.max(normalization)
+
+        im = img[:, :, i].astype(np.float32) - mi
+        im /= ma - mi
+        im = np.clip(im, 0, 1)
+        img[:, :, i] = (im * 255).astype(np.uint8)
+    cv2.imshow("NORMALIZED", img)
+    return img
 
 
 has_rotated = False
@@ -164,12 +188,6 @@ while True:
                                  bin_max=(96, 255, 252),
                                  area_min=100)
 
-    main_line = detect_object(name="main_line",
-                            img=img[316:382, 188:256],
-                            bin_min=(0, 60, 60),
-                            bin_max=(255, 255, 255),
-                            area_min=300)
-
     # if green[0] is not None:
     #     print(green[1])
 
@@ -188,25 +206,31 @@ while True:
     else:
         current_point = CCW_POINT - point_shift
 
+    # if 0 == 0:
+    wall(img)
+    if ENABLE_MOTORS:
+        hardware.forward()
+    print("STATUS: RIDING_WALL")
+
+    flag, img = hardware.get_frame()
+    main_line = detect_object(name="main_line",
+                              img=normalize(img[320:, ])[:, 200:240],
+                              bin_min=(0, 50, 50),
+                              bin_max=(255, 255, 255),
+                              area_min=20)
+
     if main_line[0] is not None:
-        print("SEEN LINE")
-        hardware.stop_center()
-        exit()
-
-    if 0 == 0:
-        wall(img)
-        if ENABLE_MOTORS:
-            hardware.forward()
-        print("STATUS: RIDING_WALL")
-    else:
-        hardware.stop()
-
-        print("Starting maneuver")
-        time.sleep(5)
         print('Wowo!')
-        maneuver(*LEFT90_MANEUVER)
-        hardware.stop_center()
-        has_rotated = True
+        if direction_mode:
+            maneuver(*RIGHT90_MANEUVER)
+        else:
+            maneuver(*LEFT90_MANEUVER)
+        # hardware.stop_center()
+        for i in range(10):
+            flag, img = hardware.get_frame()
+            # cv2.waitKey(1)
+        main_line = [None, None]
+        # exit()
 
     ch = cv2.waitKey(5)
     if ch == 27:
