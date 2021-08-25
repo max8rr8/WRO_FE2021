@@ -7,7 +7,7 @@ import atexit
 
 ENABLE_MOTORS = True
 
-direction_mode = False  # True - clockwise, False - counter clock wise
+direction_mode = True  # True - clockwise, False - counter clock wise
 
 KP = 1.5
 KD = 1
@@ -106,11 +106,11 @@ current_point = 0
 
 def find_wall(img, mode):
     if mode:
-        img = img[120:280, :80]
+        img = img[80:220, :80]
     else:
-        img = img[120:280, -80:]
+        img = img[80:220, -80:]
 
-    binarized = binarize(img=img, bin_min=(0, 0, 0), bin_max=(255, 160, 100))
+    binarized = binarize(img=img, bin_min=(0, 0, 0), bin_max=(255, 160, 120))
 
     debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
 
@@ -214,7 +214,7 @@ while True:
 
     flag, img = hardware.get_frame()
     main_line = detect_object(name="main_line",
-                              img=normalize(img[320:, ])[:, 200:240],
+                              img=normalize(img[280:320, ])[:, 200:240],
                               bin_min=(0, 50, 50),
                               bin_max=(255, 255, 255),
                               area_min=20)
@@ -226,8 +226,8 @@ while True:
         else:
             maneuver(*LEFT90_MANEUVER)
         # hardware.stop_center()
-        for i in range(10):
-            flag, img = hardware.get_frame()
+        # for i in range(10):
+        #     flag, img = hardware.get_frame()
             # cv2.waitKey(1)
         main_line = [None, None]
         # exit()
