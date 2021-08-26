@@ -12,11 +12,11 @@ direction_mode = True  # True - clockwise, False - counter clock wise
 KP = 1.5
 KD = 1
 ROUNDER = 1
-CW_POINT = 89
-CCW_POINT = 89
+CW_POINT = 48
+CCW_POINT = 48
 
 LEFT90_MANEUVER = (-30, 5500)
-RIGHT90_MANEUVER = (40, 5500)
+RIGHT90_MANEUVER = (40, 5000)
 
 RIGHT_WALL = (452, 4000)
 LEFT_WALL = (0, 4000)
@@ -125,7 +125,7 @@ def find_wall(img, mode):
 
 def wall(img):
     lowest_point = find_wall(img, direction_mode)
-
+    print(lowest_point)
     global errold
     err = lowest_point - current_point
     u = KP * err + KD * (err - errold)
@@ -231,15 +231,15 @@ time.sleep(1)
 start_ticks = hardware.read_encoder()
 rcnt = 0
 
-sec_start = 0
-for i in range(7):
-    flag, img = hardware.get_frame()
-    if i > 1:
-        sec_start += find_wall(img, direction_mode)
-    cv2.waitKey(10)
+# sec_start = 0
+# for i in range(7):
+#     flag, img = hardware.get_frame()
+#     if i > 1:
+#         sec_start += find_wall(img, direction_mode)
+#     cv2.waitKey(10)
 
-sec_start /= 5
-print(sec_start)
+# sec_start /= 5
+# print(sec_start)
 sec_ticks = 0
 
 while True:
@@ -249,16 +249,16 @@ while True:
     # if not flag: break
 
     red_marker = detect_object(name="red_marker",
-                               img=img[210:384, 0:171],
-                               bin_min=(0, 80, 100),
-                               bin_max=(255, 255, 255),
-                               area_min=100)
+                               img=img[129:333, 35:152],
+                               bin_min=(0, 21, 0),
+                               bin_max=(48, 255, 255),
+                               area_min=1500)
 
     green_marker = detect_object(name="green_marker",
-                                 img=img[239:384, 272:512],
-                                 bin_min=(47, 168, 50),
-                                 bin_max=(96, 255, 252),
-                                 area_min=100)
+                                 img=img[129:333, 255:367],
+                                 bin_min=(0, 140, 0),
+                                 bin_max=(89, 255, 255),
+                                 area_min=1500)
 
     # if green[0] is not None:
     #     print(green[1])
@@ -278,10 +278,6 @@ while True:
     else:
         current_point = CCW_POINT - point_shift
 
-    # if rcnt == 4 or rcnt == 8 or rcnt == 12:
-    if rcnt % 4 == 0:
-        current_point = sec_start
-
     # if 0 == 0:
     wall(img)
     if ENABLE_MOTORS:
@@ -294,7 +290,6 @@ while True:
                               bin_max=(255, 255, 255),
                               area_min=50)
 
-    
     if rcnt == 12:
         ab = hardware.read_encoder() - start_ticks
         if ab > til_finish_ticks:
@@ -306,13 +301,13 @@ while True:
 
         if rcnt == 0:
             til_finish_ticks = (hardware.read_encoder() - start_ticks)
-        
+
         if rcnt == 4 or rcnt == 8:
             sec_ticks += (hardware.read_encoder() - start_ticks)
             print(sec_ticks)
-        
+
         if rcnt == 11:
-            til_finish_ticks = sec_ticks / 2  - til_finish_ticks
+            til_finish_ticks = sec_ticks / 2 - til_finish_ticks
 
         if direction_mode:
             maneuver(*RIGHT90_MANEUVER)
@@ -326,17 +321,15 @@ while True:
 
         rcnt += 1
 
-
         start_ticks = hardware.read_encoder()
         # hardware.stop_center()
-        #     cv2.waitKey(1)  
+        #     cv2.waitKey(1)
         main_line = [None, None]
         # exit()
 
     ch = cv2.waitKey(5)
     if ch == 27:
         break
-
 
     if hardware.read_button():
         exit()
