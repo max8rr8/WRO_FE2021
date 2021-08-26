@@ -38,6 +38,9 @@ if REAL_HARDWARE:
 
   wiringpi.pwmWrite(SERVO_PIN, 165)
 
+  GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+  """
   GPIO.setup(16, GPIO.OUT)
   GPIO.setup(26, GPIO.OUT)
 
@@ -45,7 +48,7 @@ if REAL_HARDWARE:
   GPIO.output(26, 0)
   GPIO.output(16, 0)
   time.sleep(0.1)
-  """
+
   GPIO.output(26, 1)
   time.sleep(1)
   tof1 = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
@@ -106,6 +109,15 @@ if REAL_HARDWARE:
   cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
   cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 384)
 
+  def set_resolution(fullhd):
+    if fullhd:
+      cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+      cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    else:
+      cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
+      cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 384)
+
+
   if RECORD_VIDEO:
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter("./video.mkv", fourcc, 20, (512, 384))
@@ -118,8 +130,8 @@ if REAL_HARDWARE:
     if not flag:
       return flag, None
 
-
-    img =  img[:, :440]
+    if img.shape[0] != 1080:
+      img =  img[:, :440]
     # cv2.imshow("pre", img)
 
     if show:
@@ -149,6 +161,9 @@ if REAL_HARDWARE:
     a = tof1.get_distance(),  tof2.get_distance()   
     print(time.time() - b)
     return a
+
+  def read_button():
+    return GPIO.input(26) != GPIO.HIGH
 
 else:
   import cv2
