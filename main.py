@@ -245,25 +245,89 @@ sec_ticks = 0
 last_marker = None
 last_marker_seen = 0
 
+def detect_side_objects(img):
+  if direction_mode: # Если обьект справа
+    red_marker = detect_object(name="red_marker",
+                              img=img[129:333, 35:152],
+                              bin_min=(0, 21, 0),
+                              bin_max=(48, 255, 255),
+                              area_min=1500)
 
-def get_maneuver(last_marker):
-  if dirуction_mode: # ПОВОРОТ направо
+    green_marker = detect_object(name="green_marker",
+                                img=img[129:333, 255:367],
+                                bin_min=(0, 140, 0),
+                                bin_max=(89, 255, 255),
+                                area_min=1500)
+  else: # Если обьект слева
+    red_marker = detect_object(name="red_marker",
+                              img=img[129:333, 35:152],
+                              bin_min=(0, 21, 0),
+                              bin_max=(48, 255, 255),
+                              area_min=1500)
 
-    if last_marker is None: # Поворот направо, маркера нет
-      return (0, 40, 5500)
-    elif last_marker == "red": # Поворот направо, красный маркер
-      return (0, 35, 5500)
-    elif last_marker == "green": # Поворот направо, зелёный маркер
-      return (100, 40, 5500)
+    green_marker = detect_object(name="green_marker",
+                                img=img[129:333, 255:367],
+                                bin_min=(0, 140, 0),
+                                bin_max=(89, 255, 255),
+                                area_min=1500)
+  return red_marker, green_marker
+
+
+
+
+def get_maneuver(last_marker, current_marker):
+  if direction_mode: # ПОВОРОТ направо
+
+    if last_marker == "green":
+      if current_marker == "red":
+        return (300, 50, 4000)
+      elif current_marker == "green":
+        return (800, 50, 4000)
+      elif current_marker is None:
+        return (500, 50, 4000)
+
+    elif last_marker == "red":
+      if current_marker == "red":
+        return (2400, 50, 3100)
+      elif current_marker == "green":
+        return (3200, 50, 3100)
+      elif current_marker is None:
+        return (2800, 50, 3100)
+
+    elif last_marker is None:
+      if current_marker == "red":
+        return (300, 50, 4000)
+      elif current_marker == "green":
+        return (800, 50, 4000)
+      elif current_marker is None:
+        return (500, 50, 4000)
 
   else: # ПОВОРОТ на лево
+    if last_marker == "green":
+      if current_marker == "red":
+        return (300, -50, 4000)
+      elif current_marker == "green":
+        return (800, -50, 4000)
+      elif current_marker is None:
+        return (500, -50, 4000)
 
-    if last_marker is None:  # Поворот налево, маркера нет
-      return (0, -40, 5500)
-    elif last_marker == "red":  # Поворот налево, красный маркер
-      return (0, -35, 5500)
-    elif last_marker == "green":  # Поворот налево, зелёный маркер
-      return (100, -40, 5500)
+    elif last_marker == "red":
+      if current_marker == "red":
+        return (2400, -50, 3100)
+      elif current_marker == "green":
+        return (3200, -50, 3100)
+      elif current_marker is None:
+        return (2800, -50, 3100)
+
+    elif last_marker is None:
+      if current_marker == "red":
+        return (300, -50, 4000)
+      elif current_marker == "green":
+        return (800, -50, 4000)
+      elif current_marker is None:
+        return (500, -50, 4000)
+
+
 
 while True:
   start_time = time.time()
@@ -340,9 +404,19 @@ while True:
 
     print("Starting maneuver", last_marker, time.time() - last_marker_seen)
     if time.time() - last_marker_seen > 1.0: # 1.0 это время через которое он забудет маркер
-        last_marker = None
-    print("Getting maneuver", last_marker)
-    man = get_maneuver(last_marker)
+      last_marker = None
+
+    flag, img = hardware.get_frame()
+    side_red, side_green = detect_side_objects(img)
+
+    current_marker = None
+    if side_red is not None:
+      current_marker = 'red'
+    elif side_green is not None:
+      current_marker = 'green'
+
+    print("Getting maneuver", last_marker, current_marker)
+    man = get_maneuver(last_marker, current_marker)
 
     if man[0] > 0:
       maneuver(0, man[0])
