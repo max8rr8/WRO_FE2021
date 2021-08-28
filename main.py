@@ -304,9 +304,9 @@ def get_maneuver(last_marker, current_marker):
 
         elif last_marker == "red":
             if current_marker == "red":
-                return (600, 50, 3100)
+                return (1500, 50, 3100)
             elif current_marker == "green":
-                return (3200, 50, 3100)
+                return (3500, 50, 3100)
             elif current_marker is None:
                 return (2800, 50, 3100)
 
