@@ -1,11 +1,13 @@
 {
-    "editor.cursorStyle": "line-thin",
-    "python.testing.pytestArgs": [
-        "."
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.nosetestsEnabled": false,
-    "python.testing.pytestEnabled": false,
-    "python.testing.promptToConfigure": false,
-    "python.formatting.provider": "yapf"
+  "editor.cursorStyle": "line-thin",
+  "python.testing.pytestArgs": ["."],
+  "python.testing.unittestEnabled": false,
+  "python.testing.nosetestsEnabled": false,
+  "python.testing.pytestEnabled": false,
+  "python.testing.promptToConfigure": false,
+  "python.formatting.provider": "yapf",
+  "editor.tabSize": 4,
+  "python.formatting.yapfArgs": [
+    "--style={based_on_style: pep8, indent_width: 4}"
+  ]
 }
