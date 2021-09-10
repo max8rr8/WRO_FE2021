@@ -1,8 +1,7 @@
-from config.config import WALL_SEARCH_X
 import cv2
 import numpy as np
 from config import WALL_SEARCH_Y, KP, KD
-from config import CW_POINT, CCW_POINT, WALL_BIN
+from config import WALL_BIN, WALL_POINT, WALL_SEARCH_X
 from src.detection import binarize
 from consts import *
 import hardware
@@ -33,18 +32,20 @@ def find_wall(img, direction):
 errold = 0
 
 
-def wall(img, direction, delta_point):
+def point_shift(direction, base_point, delta_point):
+    if direction == DIRECTION_CW:
+        return base_point + delta_point
+    else:
+        return base_point - delta_point
+
+
+def wall(img, direction, target_point):
     """
     Езда по стене
     img - картинка
     direction - направление езды
-    delta_point - изменение относительно основной точки
+    target_point - точка по которой нужно держаться стены
     """
-
-    if direction == DIRECTION_CW:
-        target_point = CW_POINT + delta_point
-    else:
-        target_point = CCW_POINT - delta_point
 
     current_point = find_wall(img, direction)
     err = current_point - target_point
@@ -57,6 +58,7 @@ def wall(img, direction, delta_point):
         u = -u
 
     hardware.steer(u if direction else -u)
+
 
 def capture_wall(direction):
     point = 0

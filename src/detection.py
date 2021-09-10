@@ -34,8 +34,6 @@ def detect_object(name,
                   show=True,
                   show_unbinarized=False):
     img = crop(img, zone)
-    if show_unbinarized:
-        cv2.imshow(name + "_unbinarized", img)
     contour = None
     area, cx, cy = (None, None, None)
 
@@ -59,5 +57,9 @@ def detect_object(name,
             cv2.drawContours(debug, [contour], -1, (0, 0, 255), 3)
             cv2.circle(debug, (cx, cy), 5, (0, 0, 255), -1)
     if show:
-        cv2.imshow(name, debug)
+        if show_unbinarized:
+            debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
+            cv2.imshow(name, cv2.hconcat([img, debug]))
+        else:
+            cv2.imshow(name, debug)
     return contour, (area, cx, cy)

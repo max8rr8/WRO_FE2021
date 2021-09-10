@@ -1,15 +1,13 @@
-from src.rotate import should_start_rotate
-from src.maneuver import complex_maneuver
-from config.maneuver import MANEUVERS
-from src.wall import wall
-from config.config import POINT_SHIFT
-from src.marker import find_main_marker, find_side_markers, get_last_marker
-from src.direction import find_direction, recognize_direction
 import cv2
-import numpy as np
 import time
 import hardware
-from config import ENABLE_MOTORS
+from src.rotate import should_start_rotate
+from src.maneuver import complex_maneuver
+from src.wall import capture_wall, wall
+from src.marker import find_main_marker, find_side_markers, get_last_marker
+from src.direction import find_direction, recognize_direction
+from config import ENABLE_MOTORS, MANEUVERS
+from config import POINT_SHIFT, QUALIFICATION_MODE, WALL_POINT
 from utils import report_start
 
 ######################################################################################
@@ -26,6 +24,7 @@ for i in range(7):
     hardware.get_frame()
     cv2.waitKey(1)
 
+start_wall_point = capture_wall(direction)
 current_sector = 0
 
 start_ticks = hardware.read_encoder()
@@ -35,10 +34,14 @@ while True:
     start_time = time.time()
     flag, img = hardware.get_frame()
 
-    marker = find_main_marker(img)
-    point_shift = POINT_SHIFT[marker]
+    if QUALIFICATION_MODE:
+        wall(img, direction,
+             start_wall_point if current_sector % 4 == 0 else WALL_POINT)
+    else:
+        marker = find_main_marker(img)
+        point_shift = POINT_SHIFT[marker]
 
-    wall(img, direction, POINT_SHIFT[marker])
+        wall(img, direction, POINT_SHIFT[marker])
 
     if ENABLE_MOTORS:
         hardware.forward()
