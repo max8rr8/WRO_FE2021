@@ -10,12 +10,14 @@ import numpy as np
 import time
 import hardware
 from config import ENABLE_MOTORS
+from utils import report_start
 
 ######################################################################################
 ######################################################################################
 ######################################################################################
 
 hardware.set_resolution(True)
+report_start()
 direction = find_direction()
 hardware.set_resolution(False)
 

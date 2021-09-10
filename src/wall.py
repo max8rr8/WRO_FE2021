@@ -1,6 +1,7 @@
+from config.config import WALL_SEARCH_X
 import cv2
 import numpy as np
-from config import ROAD_SEARCH_Y, KP, KD
+from config import WALL_SEARCH_Y, KP, KD
 from config import CW_POINT, CCW_POINT, WALL_BIN
 from src.detection import binarize
 from consts import *
@@ -8,11 +9,11 @@ import hardware
 
 
 def find_wall(img, direction):
-    img = img[ROAD_SEARCH_Y[0]:ROAD_SEARCH_Y[1]]
+    img = img[WALL_SEARCH_Y[0]:WALL_SEARCH_Y[1]]
     if direction == DIRECTION_CW:
-        img = img[:, :80]
+        img = img[:, :WALL_SEARCH_X]
     else:
-        img = img[:, -80:]
+        img = img[:, -WALL_SEARCH_X:]
 
     cv2.imshow("ROAD", img)
     binarized = binarize(img=img, **WALL_BIN)

@@ -13,7 +13,7 @@ MANEUVERS = {
             MARKER_NONE: (1200, 50, 4000),
         },
         MARKER_RED: {
-            MARKER_RED: (1500, 50, 3100),
+            MARKER_RED: (800, 50, 4000),
             MARKER_GREEN: (3500, 50, 3100),
             MARKER_NONE: (2800, 50, 3100),
         },
@@ -25,19 +25,19 @@ MANEUVERS = {
     },
     DIRECTION_CCW: {
         MARKER_GREEN: {
-            MARKER_RED: (300, -50, 4000),
-            MARKER_GREEN: (800, -50, 4000),
-            MARKER_NONE: (500, -50, 4000),
+            MARKER_RED: (1000, -50, 4000),
+            MARKER_GREEN: (800, -50, 4500),
+            MARKER_NONE: (1200, -50, 4000),
         },
         MARKER_RED: {
-            MARKER_RED: (2400, -50, 3100),
-            MARKER_GREEN: (3200, -50, 3100),
+            MARKER_RED: (1500, -50, 3100),
+            MARKER_GREEN: (0, -50, 4000),
             MARKER_NONE: (2800, -50, 3100),
         },
         MARKER_NONE: {
-            MARKER_RED: (2000, -50, 4500),
-            MARKER_GREEN: (300, -50, 4500),
-            MARKER_NONE: (2000, -50, 4500),
-        },
+            MARKER_RED: (2000, -50, 4000),
+            MARKER_GREEN: (0, -50, 4000),
+            MARKER_NONE: (800, -50, 4000),
+        }
     }
 }

@@ -5,4 +5,3 @@ MARKER_RED = "red"
 MARKER_GREEN = "green"
 MARKER_NONE = None
 
-ROAD_SEARCH_Y = (80, 240) 
