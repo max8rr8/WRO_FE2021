@@ -29,7 +29,7 @@ def find_side_markers(img, direction):
     side_markers_memory = side_markers_memory[-3:]
         
 def get_side_markers():
-    # return MARKER_GREEN
+    # return MARKER_RED
 
     current_marker_none = 0
     current_marker_red = 0
