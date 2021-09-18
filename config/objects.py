@@ -1,17 +1,19 @@
-from consts import *
+from consts import DIRECTION_CCW, DIRECTION_CW
 
 # Конфигурация поиска обьектов сбоку
 SIDE_RED = {
-    'bin_min': (0, 137, 49),
-    'bin_max': (15, 255, 219),
-    'area_min': 100,
+    'zone': ((54, 178), (302, 512)),
+    'bin_min': (0, 186, 56),
+    'bin_max': (14, 255, 127),
+    'area_min': 118,
     'show_unbinarized': True
 }
 
 SIDE_GREEN = {
-    'bin_min': (0, 140, 0),
-    'bin_max': (89, 255, 255),
-    'area_min': 400,
+    'zone': ((62, 144), (0, 89)),
+    'bin_min': (66, 181, 44),
+    'bin_max': (91, 255, 126),
+    'area_min': 100,
     'show_unbinarized': True
 }
 

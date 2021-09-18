@@ -7,28 +7,30 @@ from src.detection import detect_object
 
 
 def detect_side_markers(img, direction):
-    zone = OBJECTS.SIDE_ZONE[direction]
-
-    red_marker = detect_object(name="red_marker",
+    if direction == DIRECTION_CW:
+        red_marker = detect_object(name="red_marker",
                                img=img,
-                               zone=zone,
                                **OBJECTS.SIDE_RED)
-
-    green_marker = detect_object(name="green_marker",
+        return red_marker, (None, None)
+    else:
+        green_marker = detect_object(name="green_marker",
                                  img=img,
-                                 zone=zone,
                                  **OBJECTS.SIDE_GREEN)
 
-    return red_marker, green_marker
+        return (None, None), green_marker
 
 side_markers_memory = []
 
 def find_side_markers(img, direction):
+    global side_markers_memory
+
     flag, img = hardware.get_frame()
     side_markers_memory.append(detect_side_markers(img, direction))
     side_markers_memory = side_markers_memory[-3:]
         
 def get_side_markers():
+    # return MARKER_GREEN
+
     current_marker_none = 0
     current_marker_red = 0
     current_marker_green = 0
@@ -54,11 +56,11 @@ def get_side_markers():
 def detect_main_markers(img):
     red_marker = detect_object(name="red_marker",
                                img=img,
-                               *OBJECTS.MARKER_RED)
+                               **OBJECTS.RED_MARKER)
 
     green_marker = detect_object(name="green_marker",
                                  img=img,
-                                 *OBJECTS.MARKER_GREEN)
+                                 **OBJECTS.GREEN_MARKER)
 
     return red_marker, green_marker
 
@@ -81,8 +83,9 @@ def find_main_marker(img):
     if marker != MARKER_NONE:
         last_marker = marker
         last_marker_seen = time.time()
+    return marker
 
 def get_last_marker():
     if time.time() - last_marker_seen > 1:
         return MARKER_NONE
-    
+    return last_marker 

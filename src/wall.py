@@ -32,7 +32,7 @@ def find_wall(img, direction):
 errold = 0
 
 
-def point_shift(direction, base_point, delta_point):
+def calculate_point(direction, base_point, delta_point):
     if direction == DIRECTION_CW:
         return base_point + delta_point
     else:
@@ -57,7 +57,7 @@ def wall(img, direction, target_point):
     if direction == DIRECTION_CCW:
         u = -u
 
-    hardware.steer(u if direction else -u)
+    hardware.steer(u)
 
 
 def capture_wall(direction):
