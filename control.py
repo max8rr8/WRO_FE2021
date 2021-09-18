@@ -246,14 +246,12 @@ def export_detection():
   bin_max = (detection_params["h_max"], detection_params["s_max"],
              detection_params["v_max"])
 
-  crop = f'{detection_params["y1"]}:{detection_params["y2"]}, {detection_params["x1"]}:{detection_params["x2"]}'
+  crop = f'(({detection_params["y1"]}, {detection_params["y2"]}), ({detection_params["x1"]}, {detection_params["x2"]}))'
 
-  print(f'object_name = detect_object(name="object_name",')
-  print(f'                            img=img[{crop}],')
-  print(f'                            bin_min={bin_min},')
-  print(f'                            bin_max={bin_max},')
-  print(
-      f'                            area_min={detection_params["area_min"]})')
+  print(f"    'zone': {crop},")
+  print(f"    'bin_min': {bin_min},")
+  print(f"    'bin_max': {bin_max},")
+  print(f"    'area_min': {detection_params['area_min']}")
 
 
 def detection_button(event, x, y, flags, param):

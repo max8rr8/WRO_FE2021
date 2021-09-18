@@ -1,7 +1,7 @@
 from consts import *
 
 ############# БАЗОВАЯ КОНФИГУРАЦИЯ
-QUALIFICATION_MODE = False
+QUALIFICATION_MODE = True
 ENABLE_MOTORS = True
 
 ############# КОНФИГУРАЦИЯ ЕЗДЫ ПО СТЕНКЕ

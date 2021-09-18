@@ -4,11 +4,11 @@ import hardware
 from src.rotate import should_start_rotate
 from src.maneuver import complex_maneuver
 from src.wall import capture_wall, wall
-from src.marker import find_main_marker, find_side_markers, get_last_marker
-from src.direction import find_direction, recognize_direction
+from src.marker import find_main_marker, find_side_markers, get_last_marker, get_side_markers
+from src.direction import find_direction #, recognize_direction
+from src.utils import report_start
 from config import ENABLE_MOTORS, MANEUVERS
 from config import POINT_SHIFT, QUALIFICATION_MODE, WALL_POINT
-from utils import report_start
 
 ######################################################################################
 ######################################################################################
@@ -29,7 +29,7 @@ current_sector = 0
 
 start_ticks = hardware.read_encoder()
 final_sector_ticks = 0
-
+print("AA")
 while True:
     start_time = time.time()
     flag, img = hardware.get_frame()
@@ -42,6 +42,8 @@ while True:
         point_shift = POINT_SHIFT[marker]
 
         wall(img, direction, POINT_SHIFT[marker])
+
+        find_side_markers(img)
 
     if ENABLE_MOTORS:
         hardware.forward()
@@ -59,12 +61,15 @@ while True:
             til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks
 
         last_marker = get_last_marker()
-        current_marker = find_side_markers(img, direction)
-
-        complex_maneuver(MANEUVERS[direction][last_marker][current_marker])
+        side_marker = get_side_markers()
+        
+        print("Eexecuting maneuver", direction, last_marker, side_marker)
+        complex_maneuver(*MANEUVERS[direction][last_marker][side_marker])
 
         current_sector += 1
         hardware.reset_encoder()
+
+        img = None
 
     ch = cv2.waitKey(5)
     if ch == 27:

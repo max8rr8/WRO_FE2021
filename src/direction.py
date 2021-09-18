@@ -41,8 +41,8 @@ def count(debug):
 
 
     for i in reversed(range(400)):
-        l = np.count_nonzero(debug[i, :960, 1])
-        r = np.count_nonzero(debug[i, 960:, 1])
+        l = np.count_nonzero(debug[i, :960])
+        r = np.count_nonzero(debug[i, 960:])
 
         if prev_l == -1:
             prev_l = l
@@ -73,7 +73,7 @@ def find_direction():
         if len(cnt) >= 5:
             cnt = cnt[-5:]
         
-        if cv2.waitKey(50) == " ":
+        if cv2.waitKey(50) == ord(" "):
             break
 
     cnt_l = sum([c[0] for c in cnt])

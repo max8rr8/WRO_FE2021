@@ -1,6 +1,7 @@
 from hardware.consts import *
 import RPi.GPIO as GPIO
 import wiringpi
+import time
 
 wiringpi.pinMode(SERVO_PIN, wiringpi.GPIO.PWM_OUTPUT)
 wiringpi.pinMode(MOTOR_PIN, wiringpi.GPIO.PWM_OUTPUT)
@@ -45,3 +46,7 @@ def set_direction(direction):
         pwm.stop()
     else:
         pwm.start(100)
+
+def pause_for(seconds):
+    stop_center()
+    time.sleep(seconds)

@@ -13,6 +13,7 @@ from hardware.camera import *
 from hardware.distance import *
 from hardware.encoder import *
 from hardware.movement import *
+from hardware.button import *
 
 def close_all():
     cap.release()

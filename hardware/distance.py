@@ -1,3 +1,5 @@
+import VL53L1X
+import time
 """
 GPIO.setup(16, GPIO.OUT)
 GPIO.setup(26, GPIO.OUT)
@@ -9,10 +11,12 @@ time.sleep(0.1)
 
 GPIO.output(26, 1)
 time.sleep(1)
+
+time.sleep(0.5)
 tof1 = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
+time.sleep(0.5)
+
 tof1.open()
-tof1.change_address(0x2a)
-tof1.close()
 
 tof1 = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x2a)
 tof1.open()
@@ -34,8 +38,7 @@ tof1.start_ranging(1)
 """
 
 
-# def read_sensors():
-#     b = time.time()
-#     a = tof1.get_distance(),  tof2.get_distance()
-#     print(time.time() - b)
-#     return a
+def read_distance():
+    # b = time.time()
+    # a = tof1.get_distance()
+    return tof1.get_distance()
