@@ -6,6 +6,6 @@ for pin in LED_PINS:
 
 
 def led(r, g, b):
-    GPIO.output(pin[0], GPIO.HIGH if r else GPIO.LOW)
-    GPIO.output(pin[1], GPIO.HIGH if g else GPIO.LOW)
-    GPIO.output(pin[2], GPIO.HIGH if b else GPIO.LOW)
+    GPIO.output(LED_PINS[0], GPIO.HIGH if r else GPIO.LOW)
+    GPIO.output(LED_PINS[1], GPIO.HIGH if g else GPIO.LOW)
+    GPIO.output(LED_PINS[2], GPIO.HIGH if b else GPIO.LOW)

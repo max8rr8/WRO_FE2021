@@ -12,4 +12,4 @@ def wait_button(cv_button=27):
     if cv2.waitKey(5) & 0xFF == cv_button:
         return False
 
-    return read_button()
+    return not read_button()

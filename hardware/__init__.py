@@ -14,11 +14,13 @@ from hardware.distance import *
 from hardware.encoder import *
 from hardware.movement import *
 from hardware.button import *
+from hardware.led import *
 
 def close_all():
     cap.release()
     stop_center()
     cv2.destroyAllWindows()
+    led(0,0,0)
     exit()
 
 import signal

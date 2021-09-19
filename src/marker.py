@@ -89,3 +89,11 @@ def get_last_marker():
     if time.time() - last_marker_seen > 1:
         return MARKER_NONE
     return last_marker 
+
+def led_marker(marker):
+    if marker == MARKER_RED:
+        hardware.led(1,0,0)
+    elif marker == MARKER_GREEN:
+        hardware.led(0,1,0)
+    else:
+        hardware.led(0,0,1)

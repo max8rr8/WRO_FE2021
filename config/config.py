@@ -1,7 +1,7 @@
 from consts import *
 
 ############# БАЗОВАЯ КОНФИГУРАЦИЯ
-QUALIFICATION_MODE = False
+QUALIFICATION_MODE = True
 ENABLE_MOTORS = True
 
 ############# КОНФИГУРАЦИЯ ЕЗДЫ ПО СТЕНКЕ
@@ -20,3 +20,5 @@ POINT_SHIFT = {
     MARKER_GREEN: +15,
     MARKER_NONE: 0
 }
+
+QUALIFICATION_SECTOR_BORDERS = (30, 90)

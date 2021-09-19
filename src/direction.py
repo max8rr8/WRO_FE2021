@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import hardware
+from consts import *
 
 def find_field(img):
     mi = np.min(img, axis=2)
@@ -63,6 +64,7 @@ def count(debug):
 
 def find_direction():
     cnt = []
+    direction = None
 
     while hardware.wait_button(ord(" ")):
         flag, img = hardware.get_frame()
@@ -73,7 +75,15 @@ def find_direction():
         if len(cnt) >= 5:
             cnt = cnt[-5:]
         
-    cnt_l = sum([c[0] for c in cnt])
-    cnt_r = sum([c[1] for c in cnt])
+        cnt_l = sum([c[0] for c in cnt])
+        cnt_r = sum([c[1] for c in cnt])
 
-    return cnt_r > cnt_l
+        direction = cnt_r> cnt_l
+        if direction == DIRECTION_CW:
+            hardware.led(1,0, 0)
+        else:
+            hardware.led(0, 1,0)
+
+
+
+    return direction
