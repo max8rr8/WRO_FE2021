@@ -16,7 +16,7 @@ def maneuver(angle, encoder_ticks):
         current_tick = hardware.read_encoder()
         if cnt == 0:
             hardware.get_frame()
-        cnt = (cnt + 1) % 10
+        cnt = (cnt + 1) % 5
 
         if abs(current_tick - start_tick) > encoder_ticks:
             hardware.get_frame()

@@ -36,7 +36,7 @@ while hardware.wait_button():
     flag, img = hardware.get_frame()
 
     if QUALIFICATION_MODE:
-        hardware.led(0,0,1)
+        hardware.led(0, 0, 1)
         wall(
             img, direction, start_wall_point if current_sector %
             4 == 0 else QUALIFICATION_WALL_POINT)
@@ -59,7 +59,7 @@ while hardware.wait_button():
         exit()
 
     if should_start_rotate(img):
-        hardware.led(1,1,1)
+        hardware.led(1, 1, 1)
 
         if current_sector == 0:
             til_finish_ticks = hardware.read_encoder()
@@ -74,7 +74,7 @@ while hardware.wait_button():
             #         side_sector = -1
             #     elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
             #         side_sector = +1
-            #     else: 
+            #     else:
             #         side_sector = 0
 
             #     print("Executing qualification pre-final maneuver", direction, side_sector)
@@ -94,3 +94,7 @@ while hardware.wait_button():
         hardware.reset_encoder()
 
         img = None
+
+        for i in range(5):
+            a = hardware.get_frame()
+            cv2.waitKey(10)
