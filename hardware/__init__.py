@@ -1,5 +1,5 @@
 
-from hardware.consts import *
+from config.hardware import *
 import Encoder
 import RPi.GPIO as GPIO
 import wiringpi

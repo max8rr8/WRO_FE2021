@@ -1,4 +1,4 @@
-from hardware.consts import *
+from config.hardware import *
 import RPi.GPIO as GPIO
 import wiringpi
 import time

@@ -64,7 +64,7 @@ def count(debug):
 def find_direction():
     cnt = []
 
-    while not hardware.read_button():
+    while hardware.wait_button(ord(" ")):
         flag, img = hardware.get_frame()
         field = find_field(img[:400])
         delta_cnt = count(field)
@@ -73,9 +73,6 @@ def find_direction():
         if len(cnt) >= 5:
             cnt = cnt[-5:]
         
-        if cv2.waitKey(50) == ord(" "):
-            break
-
     cnt_l = sum([c[0] for c in cnt])
     cnt_r = sum([c[1] for c in cnt])
 

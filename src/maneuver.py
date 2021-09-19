@@ -9,7 +9,7 @@ def maneuver(angle, encoder_ticks):
     hardware.steer(angle)
     start_tick = hardware.read_encoder()
     cnt = 0
-    while True:
+    while hardware.wait_button():
         if ENABLE_MOTORS:
             hardware.forward()
         time.sleep(0.07)
