@@ -16,8 +16,8 @@ MANEUVERS = {
             MARKER_NONE: (150, 50, 700),
         },
         MARKER_NONE: {
-            MARKER_RED: (50, 50, 700),
-            MARKER_NONE: (100, 50, 700),
+            MARKER_RED: (0, 50, 700),
+            MARKER_NONE: (150, 50, 700),
         }
     },
     DIRECTION_CCW: {

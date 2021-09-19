@@ -6,9 +6,9 @@ ENABLE_MOTORS = True
 
 ############# КОНФИГУРАЦИЯ ЕЗДЫ ПО СТЕНКЕ
 KP = 1.5
-KD = 2
+KD = 1
 ROUNDER = 1
-WALL_POINT = 50
+WALL_POINT = 47
 QUALIFICATION_WALL_POINT = 100
 
 WALL_SEARCH_Y = (80, 240)
