@@ -11,7 +11,7 @@ pwm = GPIO.PWM(12, 50)
 
 wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
-wiringpi.pwmSetRange(4096)
+wiringpi.pwmSetRange(2000)
 
 wiringpi.pwmWrite(SERVO_PIN, 165)
 

@@ -7,7 +7,7 @@ from src.wall import capture_wall, wall, calculate_point
 from src.marker import find_main_marker, find_side_markers, get_last_marker, get_side_markers, led_marker
 from src.direction import find_direction  #, recognize_direction
 from src.utils import report_start
-from config import ENABLE_MOTORS, MANEUVERS
+from config import ENABLE_MOTORS, MANEUVERS, QUALIFICATION_SECTOR_BORDERS
 from config import POINT_SHIFT, QUALIFICATION_MODE, WALL_POINT
 from config import QUALIFICATION_WALL_POINT, QUALIFICATION_MANEUVER
 
@@ -69,20 +69,20 @@ while hardware.wait_button():
             til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks
 
         if QUALIFICATION_MODE:
-            if current_sector % 4 == 3:
-                if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
-                    side_sector = -1
-                elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
-                    side_sector = +1
-                else: 
-                    side_secotr = 0
+            # if current_sector % 4 == 3:
+            #     if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
+            #         side_sector = -1
+            #     elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
+            #         side_sector = +1
+            #     else: 
+            #         side_sector = 0
 
-                print("Executing qualification pre-final maneuver", direction, side_sector)
+            #     print("Executing qualification pre-final maneuver", direction, side_sector)
 
-                complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
-            else:
-                print("Executing qualification base maneuver", direction)
-                complex_maneuver(*QUALIFICATION_MANEUVER[direction])
+            #     complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
+            # else:
+            #     print("Executing qualification base maneuver", direction)
+            complex_maneuver(*QUALIFICATION_MANEUVER[direction])
         else:
             last_marker = get_last_marker()
             side_marker = get_side_markers()

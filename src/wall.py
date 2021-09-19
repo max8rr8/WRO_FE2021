@@ -48,6 +48,7 @@ def wall(img, direction, target_point):
     """
 
     current_point = find_wall(img, direction)
+    print("Current_pont",current_point)
     err = current_point - target_point
 
     global errold

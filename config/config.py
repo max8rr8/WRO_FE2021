@@ -1,14 +1,14 @@
 from consts import *
 
 ############# БАЗОВАЯ КОНФИГУРАЦИЯ
-QUALIFICATION_MODE = True
+QUALIFICATION_MODE = False
 ENABLE_MOTORS = True
 
 ############# КОНФИГУРАЦИЯ ЕЗДЫ ПО СТЕНКЕ
 KP = 1.5
-KD = 1
+KD = 2
 ROUNDER = 1
-WALL_POINT = 52
+WALL_POINT = 50
 QUALIFICATION_WALL_POINT = 100
 
 WALL_SEARCH_Y = (80, 240)
