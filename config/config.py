@@ -1,4 +1,5 @@
 from consts import *
+from config.config import QUALIFICATION_MODE
 
 ############# БАЗОВАЯ КОНФИГУРАЦИЯ
 QUALIFICATION_MODE = True
@@ -11,8 +12,13 @@ ROUNDER = 1
 WALL_POINT = 47
 QUALIFICATION_WALL_POINT = 80
 
-WALL_SEARCH_Y = (80, 240)
-WALL_SEARCH_X = 60
+if QUALIFICATION_MODE: # Настройки в режиме квалификации
+    WALL_SEARCH_Y = (80, 240)
+    WALL_SEARCH_X = 60
+else:
+    WALL_SEARCH_Y = (60, 260)
+    WALL_SEARCH_X = 80
+
 WALL_BIN = {'bin_min': (0, 0, 0), 'bin_max': (255, 255, 40)}
 
 POINT_SHIFT = {

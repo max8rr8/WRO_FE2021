@@ -1,3 +1,4 @@
+from config.config import QUALIFICATION_MODE
 from config.hardware import *
 import RPi.GPIO as GPIO
 import wiringpi
@@ -17,7 +18,8 @@ wiringpi.pwmWrite(SERVO_PIN, 165)
 
 
 def forward(speed=1):
-    wiringpi.pwmWrite(MOTOR_PIN, int(BASE_SPEED * speed))
+    base_speed = QUALIFICATION_SPEED if QUALIFICATION_MODE else BASE_SPEED
+    wiringpi.pwmWrite(MOTOR_PIN, int(base_speed * speed))
 
 
 def stop():

@@ -1,3 +1,4 @@
+from config.maneuver import QUALIFICATION_PRE_FINAL_MANEUVER
 import cv2
 import time
 import hardware
@@ -69,20 +70,20 @@ while hardware.wait_button():
             til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks
 
         if QUALIFICATION_MODE:
-            # if current_sector % 4 == 3:
-            #     if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
-            #         side_sector = -1
-            #     elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
-            #         side_sector = +1
-            #     else:
-            #         side_sector = 0
+            if current_sector % 4 == 3:
+                if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
+                    side_sector = -1
+                elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
+                    side_sector = +1
+                else:
+                    side_sector = 0
 
-            #     print("Executing qualification pre-final maneuver", direction, side_sector)
+                print("Executing qualification pre-final maneuver", direction, side_sector)
 
-            #     complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
-            # else:
-            #     print("Executing qualification base maneuver", direction)
-            complex_maneuver(*QUALIFICATION_MANEUVER[direction])
+                complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
+            else:
+                print("Executing qualification base maneuver", direction)
+                complex_maneuver(*QUALIFICATION_MANEUVER[direction])
         else:
             last_marker = get_last_marker()
             side_marker = get_side_markers()
