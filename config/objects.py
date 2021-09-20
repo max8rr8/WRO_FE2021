@@ -1,6 +1,6 @@
 from consts import DIRECTION_CCW, DIRECTION_CW
 
-# Конфигурация поиска обьектов сбоку
+# Configuration for red side marker
 SIDE_RED = {
     'zone': ((54, 178), (302, 512)),
     'bin_min': (0, 186, 56),
@@ -9,6 +9,7 @@ SIDE_RED = {
     'show_unbinarized': True
 }
 
+# Configuration for green side marker
 SIDE_GREEN = {
     'zone': ((62, 144), (0, 89)),
     'bin_min': (66, 181, 44),
@@ -17,12 +18,13 @@ SIDE_GREEN = {
     'show_unbinarized': True
 }
 
+# Unused
 SIDE_ZONE = {
     DIRECTION_CW: ((30, 176), (300, 640)),
     DIRECTION_CCW: ((75, 174), (0, 66)),
 }
 
-# Конфигурация поиска линии
+# Configuration for line(orange and blue) binarization
 MAIN_LINE = {
     'zone': ((180, 270), (200, 240)),
     'bin_min': (0, 80, 30),
@@ -30,7 +32,7 @@ MAIN_LINE = {
     'area_min': 50
 }
 
-# Конфигурация поиска обьектов
+# Configuration for red marker
 RED_MARKER = {
     'zone': ((129, 333), (35, 152)),
     'bin_min': (0, 71, 54),
@@ -38,6 +40,7 @@ RED_MARKER = {
     'area_min': 1500
 }
 
+# Configuration for green marker
 GREEN_MARKER = {
     'zone': ((129, 333), (255, 367)),
     'bin_min': (60, 156, 37),

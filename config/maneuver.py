@@ -1,10 +1,11 @@
 from consts import *
 
-
-#   Направление:
-#       Последний маркер:
-#           Следующий маркер:
-
+# Maneuvers for turns
+# each maneuver is complex maneuver, format is: (forward_ticks, servo_angle, turn_ticks)
+# Dict are aranged in following format:
+#   Direction:
+#       Last seen marker:
+#           Next(side) marker:
 MANEUVERS = {
     DIRECTION_CW: {
         MARKER_GREEN: {
@@ -34,13 +35,22 @@ MANEUVERS = {
             MARKER_NONE: (150, -50, 800),
         }
     }
-} 
+}
 
+# Manuvers for qualification turns (for all sections except for 3, 7, 11)
+# each maneuver is complex maneuver, format is: (forward_ticks, servo_angle, turn_ticks)
+# Dict are aranged in following format:
+#   Direction:
 QUALIFICATION_MANEUVER = {
     DIRECTION_CW: (100, 50, 600),
     DIRECTION_CCW: (300, -50, 700),
 }
 
+# Manuvers for pre-final qualification turns (for 3, 7, 11 section)
+# each maneuver is complex maneuver, format is: (forward_ticks, servo_angle, turn_ticks)
+# Dict are aranged in following format:
+#   Direction:
+#      Sector to finish in (-1 near to outer wall, 0 for central sector, 1 for inner wall):
 QUALIFICATION_PRE_FINAL_MANEUVER = {
     DIRECTION_CW: {
         -1: (300, 50, 700),

@@ -19,6 +19,7 @@ def find_wall(img, direction):
 
     debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
 
+    # For each row calculate last white pixel, and then get average of them
     lowest_points = np.argmax(binarized[::-1], axis=0)
     lowest_point = binarized.shape[0] - np.average(lowest_points)
 
