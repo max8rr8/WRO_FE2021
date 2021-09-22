@@ -1,4 +1,5 @@
 from consts import DIRECTION_CCW, DIRECTION_CW
+from config.config import QUALIFICATION_MODE
 
 # Configuration for red side marker
 SIDE_RED = {
@@ -26,9 +27,9 @@ SIDE_ZONE = {
 
 # Configuration for line(orange and blue) binarization
 MAIN_LINE = {
-    'zone': ((180, 270), (200, 240)),
-    'bin_min': (0, 80, 30),
-    'bin_max': (255, 255, 255),
+    'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((180, 270), (200, 240)),
+    'bin_min': (3, 24, 112),
+    'bin_max': (22, 255, 142),
     'area_min': 50
 }
 

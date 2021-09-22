@@ -67,7 +67,7 @@ while hardware.wait_button():
         elif current_sector == 4 or current_sector == 8:
             final_sector_ticks += hardware.read_encoder()
         elif current_sector == 11:
-            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks
+            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 100
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:

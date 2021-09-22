@@ -1,5 +1,4 @@
 from consts import *
-from config.config import QUALIFICATION_MODE
 
 ############# BASIC CONFIGURATION
 QUALIFICATION_MODE = True # False: final mode, True: qualification mode
@@ -27,4 +26,4 @@ POINT_SHIFT = { # Point shift for wall movement, for clockwise direction (in ccw
     MARKER_NONE: 0
 }
 
-QUALIFICATION_SECTOR_BORDERS = (30, 90) # Rnage of distance to wall for central sector (qualification mode)
+QUALIFICATION_SECTOR_BORDERS = (35, 70) # Rnage of distance to wall for central sector (qualification mode)

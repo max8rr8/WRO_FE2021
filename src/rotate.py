@@ -14,7 +14,7 @@ def should_start_rotate(img):
         return False
 
     print(time.time() - last_seen)
-    if time.time() - last_seen < 2:
+    if time.time() - last_seen < 0.5:
         return False
     
     last_seen = time.time()

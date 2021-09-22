@@ -43,7 +43,7 @@ MANEUVERS = {
 #   Direction:
 QUALIFICATION_MANEUVER = {
     DIRECTION_CW: (100, 50, 600),
-    DIRECTION_CCW: (300, -50, 700),
+    DIRECTION_CCW: (100, -50, 600),
 }
 
 # Manuvers for pre-final qualification turns (for 3, 7, 11 section)
@@ -53,13 +53,13 @@ QUALIFICATION_MANEUVER = {
 #      Sector to finish in (-1 near to outer wall, 0 for central sector, 1 for inner wall):
 QUALIFICATION_PRE_FINAL_MANEUVER = {
     DIRECTION_CW: {
-        -1: (300, 50, 700),
-        00: (300, 50, 700),
-        +1: (300, 50, 700)
+        -1: (100, 50, 600),
+        00: (0, 50, 600),
+        +1: (0, 50, 700) # BROKEN
     },
     DIRECTION_CCW: {
-        -1: (300, 50, 700),
-        00: (300, 50, 700),
-        +1: (300, 50, 700)
+        -1: (100, -50, 600),
+        00: (0, -50, 700),
+        +1: (0, -50, 700) # BROKEN
     },
 }
