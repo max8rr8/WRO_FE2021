@@ -27,9 +27,9 @@ SIDE_ZONE = {
 
 # Configuration for line(orange and blue) binarization
 MAIN_LINE = {
-    'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((180, 270), (200, 240)),
-    'bin_min': (3, 24, 112),
-    'bin_max': (22, 255, 142),
+    'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
+    'bin_min': (0, 60, 20),
+    'bin_max': (255, 255, 255),
     'area_min': 50
 }
 

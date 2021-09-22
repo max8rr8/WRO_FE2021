@@ -1,14 +1,14 @@
 from consts import *
 
 ############# BASIC CONFIGURATION
-QUALIFICATION_MODE = True # False: final mode, True: qualification mode
+QUALIFICATION_MODE = False # False: final mode, True: qualification mode
 ENABLE_MOTORS = True # Enable motors, for debug purpose
 
 ############# WALL MOVEMENT CONFIGURATION
 KP = 1.5 # PID proportional coefficient
-KD = 3  # PID differential coefficient
+KD = 1 #для большей скорости увеличивать # PID differential coefficient
 ROUNDER = 1 # UNUSED
-WALL_POINT = 47 # Target point for wall movement (final mode), the bigger the more near to wall we move
+WALL_POINT = 59 # уменьшать если скорость увеличиывем# Target point for wall movement (final mode), the bigger the more near to wall we move
 QUALIFICATION_WALL_POINT = 80  # Same as previous, but for qualification mode
 
 if QUALIFICATION_MODE: # If we are in qualification mode
