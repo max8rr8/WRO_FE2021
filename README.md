@@ -1,5 +1,26 @@
 # White Storks, WRO FE Solution
 
+# Hardware
+
+Our robot is made from following components:
+* Main computer - Raspberry Pi 4 4GB
+* 1х RPi Camera (I), Fisheye Lens, 170deg FOV
+* 1x SD card 16Gb
+* 1х Battery Shield V8
+* 2x 18650 LiIon Batteries
+* 1х DRV1.5DC, 1.5A 2 way DC Motor Driver Module PWM
+* 1х JGA25-370 DC GEAR MOTOR 25GA-370 with Speed Encoder
+* 1х Servo MG90S for steering 
+* 1x Lego differential gears
+* 1x Coupling 4 to 5 mm
+* 2x Wheels Lego 62,4
+* 1x Amperka Troyka Button
+* 1x KY-016 RGB Full color led module
+* 1x 3D printed camera mount, stl file is `cam_mount_v2.0.stl`
+
+## Electronics schematics
+
+
 # Software
 
 Components:
