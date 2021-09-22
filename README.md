@@ -1,5 +1,10 @@
 # White Storks, WRO FE Solution
 
+![Image of robot](https://i.imgur.com/vlE7K94.jpg)
+
+### Video
+Click to play
+[![Alt text](https://img.youtube.com/vi/N_jFORARUJI/0.jpg)](https://www.youtube.com/watch?v=N_jFORARUJI)
 # Hardware
 
 Our robot is made from following components:
@@ -19,7 +24,7 @@ Our robot is made from following components:
 * 1x 3D printed camera mount, stl file is `cam_mount_v2.0.stl`
 
 ## Electronics schematics
-
+![Electronics schematics](https://i.imgur.com/Emthl2X.png)
 
 # Software
 
@@ -35,6 +40,11 @@ Components:
 8. Turns is done using special "maneuver" algorithm, [read more](#turns-and-lines).
 9. There is special program called `control.py` that helps with hsv binarization setup and hardware testing
 10. Iterection with hardware done by code in `hardware` directory
+
+## How to run 
+1. Clone this repository
+2. Install dependecies from `requirements.txt`
+3. Run `sudo -E python3 ./main.py`
 
 ## Algorithm
 
