@@ -9,3 +9,6 @@ RIGHT_ANGLE = 222 # Servo right maximum angle
 
 BASE_SPEED = 1250 # Speed of robot(pwm value), from 0  to 2000
 QUALIFICATION_SPEED = 1350 # Same as previus, but for quallification
+
+
+DO_WAIT = True # PAUSE HARDWARE UNTIL BUTTON PUSH
