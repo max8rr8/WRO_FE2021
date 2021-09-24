@@ -1,7 +1,7 @@
 from consts import *
 
 ############# BASIC CONFIGURATION
-QUALIFICATION_MODE = False # False: final mode, True: qualification mode
+QUALIFICATION_MODE = True # False: final mode, True: qualification mode
 ENABLE_MOTORS = True # Enable motors, for debug purpose
 
 ############# WALL MOVEMENT CONFIGURATION
