@@ -38,11 +38,12 @@ final_sector_ticks = 0
 print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
 
 hardware.forward(10)
-time.sleep(0.5)
+time.sleep(0.2)
 
 while hardware.wait_button():
     start_time = time.time()
     flag, img = hardware.get_frame()
+    # print(img.shape)
 
     if QUALIFICATION_MODE:
         hardware.led(0, 0, 1)
@@ -73,9 +74,10 @@ while hardware.wait_button():
         if current_sector == 0:
             til_finish_ticks = hardware.read_encoder()
         elif current_sector == 4 or current_sector == 8:
+            print("FINAL SECTOR TOOK", hardware.read_encoder())
             final_sector_ticks += hardware.read_encoder()
         elif current_sector == 11:
-            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 260
+            til_finish_ticks = 1000 # final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:
@@ -107,6 +109,6 @@ while hardware.wait_button():
         for i in range(5):
             a = hardware.get_frame()
             cv2.waitKey(10)
-        # if current_sector == 2:
+        # if current_sector == 1:
         #     exit(1)
     

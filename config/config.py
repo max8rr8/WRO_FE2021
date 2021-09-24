@@ -9,12 +9,16 @@ if QUALIFICATION_MODE: # QUALIFICATION
     KP = 1 # PID proportional coefficient
     KD = 3 #для большей скорости увеличивать # PID differential coefficient
 else: # FINAL
-    KP = 1 # PID proportional coefficient
+    KP = 1.5 # PID proportional coefficient
     KD = 2#для большей скорости увеличивать # PID differential coefficient
 
 
 ROUNDER = 1 # UNUSED
-WALL_POINT = 65 # уменьшать если скорость увеличиывем# Target point for wall movement (final mode), the bigger the more near to wall we move
+
+# уменьшать если скорость увеличиывем# Target point for wall movement (final mode), the bigger the more near to wall we move
+# WALL_POINT = 65 
+WALL_POINT = 59 
+
 QUALIFICATION_WALL_POINT = 80  # Same as previous, but for qualification mode
 
 if QUALIFICATION_MODE: # If we are in qualification mode

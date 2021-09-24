@@ -12,9 +12,9 @@ SIDE_RED = {
 
 # Configuration for green side marker
 SIDE_GREEN = {
-    'zone': ((54, 178), (0, 89)),
-    'bin_min': (56, 89, 63),
-    'bin_max': (86, 255, 255),
+    'zone': ((54, 178), (0, 190)),
+    'bin_min': (50, 100, 80),
+    'bin_max': (90, 255, 255),
     'area_min': 50,
     'show_unbinarized': True
 }
@@ -29,8 +29,8 @@ SIDE_ZONE = {
 MAIN_LINE = {
     DIRECTION_CW: { # ORANGE LINE
     'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
-    'bin_min': (7, 0, 93),
-    'bin_max': (48, 255, 147),
+    'bin_min': (4, 29, 65),
+    'bin_max': (62, 202, 184),
     'area_min': 50
     }, 
     DIRECTION_CCW: { # BLUE LINE
