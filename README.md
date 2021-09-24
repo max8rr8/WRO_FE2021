@@ -24,6 +24,7 @@ Our robot is made from following components:
 * 1x KY-016 RGB Full color led module
 * 1x 3D printed camera mount, stl file is `cam_mount_v2.0.stl`
 
+## [Photos](https://imgur.com/a/h5jWzw6)
 ## Electronics schematics
 ![Electronics schematics](https://i.imgur.com/Emthl2X.png)
 
@@ -188,3 +189,8 @@ Turn maneuvers are implemented in `src/maneuver.py`. There are two functions:
 - `maneuver` - Simple maneuver, steers servo to given angle, and waits for encoder ticks
 - `complex_maneuver` - Consists of two maneuvers, first move forward for given ticks(first argument), and then run second maneuver for given ticks and angle(second and third arguments)
 
+
+# Team photos
+
+![Team 1](https://i.imgur.com/CBfWwj0.jpg)
+![Team 2](https://i.imgur.com/jpA29lM.jpg)
