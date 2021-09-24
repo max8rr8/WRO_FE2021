@@ -9,29 +9,29 @@ from consts import *
 MANEUVERS = {
     DIRECTION_CW: {
         MARKER_GREEN: {
-            MARKER_RED: (25, 50, 700),
-            MARKER_NONE: (200, 50, 700),
+            MARKER_RED: (0, 50, 500), #Ok
+            MARKER_NONE: (150, 50, 600), #OK
         },
         MARKER_RED: {
-            MARKER_RED: (50, 50, 700),
+            MARKER_RED: (20, 50, 600),
             MARKER_NONE: (200, 50, 600),
         },
         MARKER_NONE: {
-            MARKER_RED: (0, 50, 700),
+            MARKER_RED: (0, 50, 700), #OK
             MARKER_NONE: (150, 50, 700),
         }
     },
     DIRECTION_CCW: {
         MARKER_GREEN: {
-            MARKER_GREEN: (0, -50, 800),
-            MARKER_NONE: (250, -50, 800),
+            MARKER_GREEN: (0, -50, 600),
+            MARKER_NONE: (250, -50, 600),
         },
         MARKER_RED: {
-            MARKER_GREEN: (50, -50, 800),
-            MARKER_NONE: (200, -50, 800),
+            MARKER_GREEN: (50, -50, 600),
+            MARKER_NONE: (200, -50, 600),
         },
         MARKER_NONE: {
-            MARKER_GREEN: (25, -50, 800),
+            MARKER_GREEN: (25, -50, 600),
             MARKER_NONE: (150, -50, 600),
         }
     }
@@ -42,7 +42,7 @@ MANEUVERS = {
 # Dict are aranged in following format:
 #   Direction:
 QUALIFICATION_MANEUVER = {
-    DIRECTION_CW: (100, 50, 600),
+    DIRECTION_CW: (200, 50, 600),
     DIRECTION_CCW: (100, -50, 600),
 }
 
@@ -54,7 +54,7 @@ QUALIFICATION_MANEUVER = {
 QUALIFICATION_PRE_FINAL_MANEUVER = {
     DIRECTION_CW: {
         -1: (100, 50, 600),
-        00: (0, 50, 600),
+        00: (200, 50, 600),
         +1: (0, 50, 700) # BROKEN
     },
     DIRECTION_CCW: {

@@ -7,5 +7,5 @@ CENTER_ANGLE = 162 # Servo center angle
 LEFT_ANGLE = 99 # Servo left maximum angle
 RIGHT_ANGLE = 222 # Servo right maximum angle
 
-BASE_SPEED = 1200 # Speed of robot(pwm value), from 0  to 2000
-QUALIFICATION_SPEED = 1200 # Same as previus, but for quallification
+BASE_SPEED = 1250 # Speed of robot(pwm value), from 0  to 2000
+QUALIFICATION_SPEED = 1350 # Same as previus, but for quallification

@@ -3,6 +3,7 @@ import cv2
 
 def binarize(img, bin_min, bin_max):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    hsv[:, :, 0][hsv[:, :, 0] > 165] = 0
     bin_image = cv2.inRange(hsv, bin_min, bin_max)
     bin_image = cv2.erode(bin_image, None, iterations=4)
     bin_image = cv2.dilate(bin_image, None, iterations=4)

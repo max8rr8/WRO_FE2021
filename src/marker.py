@@ -21,12 +21,17 @@ def detect_side_markers(img, direction):
 
 side_markers_memory = []
 
+i = 0
+
 def find_side_markers(img, direction):
     global side_markers_memory
-
+    global i
     flag, img = hardware.get_frame()
+    cv2.imwrite(f"t{i}.png", img)
+    i=(i+1)%7
+    # print(i)
     side_markers_memory.append(detect_side_markers(img, direction))
-    side_markers_memory = side_markers_memory[-3:]
+    side_markers_memory = side_markers_memory[-7:]
         
 def get_side_markers():
     # return MARKER_RED
@@ -35,7 +40,7 @@ def get_side_markers():
     current_marker_red = 0
     current_marker_green = 0
 
-    for side_red, side_green in side_markers_memory:
+    for side_red, side_green in side_markers_memory[:3]:
         print("SIDE OBJECTS", side_red[1], side_green[1])
         if side_red[0] is not None:
             current_marker_red += 1

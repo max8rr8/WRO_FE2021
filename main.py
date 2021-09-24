@@ -32,6 +32,7 @@ current_sector = 0
 start_ticks = hardware.read_encoder()
 final_sector_ticks = 0
 print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
+
 while hardware.wait_button():
     start_time = time.time()
     flag, img = hardware.get_frame()
@@ -47,7 +48,7 @@ while hardware.wait_button():
         led_marker(marker)
         point_shift = POINT_SHIFT[marker]
         point = calculate_point(direction, WALL_POINT, point_shift)
-        print(marker, point)
+        # print("Marker", marker)
         wall(img, direction, point)
 
         find_side_markers(img, direction)
@@ -59,7 +60,7 @@ while hardware.wait_button():
         hardware.stop_center()
         exit()
 
-    if should_start_rotate(img):
+    if should_start_rotate(img, direction):
         hardware.led(1, 1, 1)
 
         if current_sector == 0:
@@ -67,7 +68,7 @@ while hardware.wait_button():
         elif current_sector == 4 or current_sector == 8:
             final_sector_ticks += hardware.read_encoder()
         elif current_sector == 11:
-            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 150
+            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 200
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:
@@ -99,3 +100,6 @@ while hardware.wait_button():
         for i in range(5):
             a = hardware.get_frame()
             cv2.waitKey(10)
+        # if current_sector == 2:
+        #     exit(1)
+    
