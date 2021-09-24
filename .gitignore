@@ -4,3 +4,4 @@ data.zip
 .DS_Store
 .vscode/.ropeproject
 *.png
+log.txt

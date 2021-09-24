@@ -27,11 +27,18 @@ for i in range(7):
     cv2.waitKey(10)
 
 start_wall_point = capture_wall(direction)
+print(start_wall_point)
+if start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
+    start_wall_point = WALL_POINT
+
 current_sector = 0
 
 start_ticks = hardware.read_encoder()
 final_sector_ticks = 0
 print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
+
+hardware.forward(10)
+time.sleep(0.5)
 
 while hardware.wait_button():
     start_time = time.time()
@@ -68,7 +75,7 @@ while hardware.wait_button():
         elif current_sector == 4 or current_sector == 8:
             final_sector_ticks += hardware.read_encoder()
         elif current_sector == 11:
-            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 200
+            til_finish_ticks = final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:

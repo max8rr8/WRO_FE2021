@@ -1,3 +1,4 @@
 #!/bin/bash
 cd /home/pi/WRO_FE2021
-# sudo -E python3 ./main.py
+# sudo echo STARTING PROGRAMM >> ./log.txt
+# sudo -E python3 ./main.py >> ./log.txt
