@@ -88,6 +88,11 @@ def find_main_marker(img):
     if marker != MARKER_NONE:
         last_marker = marker
         last_marker_seen = time.time()
+
+    ## BETA BETA BETA BETA untested
+    if marker == MARKER_NONE and (time.time() - last_marker_seen) < 1:
+        marker = last_marker
+
     return marker
 
 def get_last_marker():

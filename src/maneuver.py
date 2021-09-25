@@ -1,6 +1,7 @@
 from config import ENABLE_MOTORS
 import hardware
 import time
+from marker import find_main_marker
 
 def maneuver(angle, encoder_ticks):
     if not ENABLE_MOTORS:
@@ -14,10 +15,11 @@ def maneuver(angle, encoder_ticks):
             hardware.forward()
         time.sleep(0.07)
         current_tick = hardware.read_encoder()
-        if cnt == 0:
-            hardware.get_frame()
-        cnt = (cnt + 1) % 5
-
+        
+        #### BETA BETA BETA Unteseted
+        img, flag = hardware.get_frame()
+        find_main_marker(img)
+        
         if abs(current_tick - start_tick) > encoder_ticks:
             hardware.get_frame()
             break
