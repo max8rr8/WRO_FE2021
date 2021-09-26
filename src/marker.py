@@ -40,8 +40,8 @@ def get_side_markers():
     current_marker_red = 0
     current_marker_green = 0
 
-    # for side_red, side_green in side_markers_memory:
-    #     print("SIDE OBJECTS", side_red[1], side_green[1])
+    for side_red, side_green in side_markers_memory:
+        print("SIDE OBJECTS", side_red[1], side_green[1])
     
 
     for side_red, side_green in side_markers_memory[:3]:

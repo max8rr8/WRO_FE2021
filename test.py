@@ -2,5 +2,9 @@ import hardware
 
 import time
 
-while True:
-    print(hardware.read_button())
+
+hardware.steer(-20)
+time.sleep(0.5)
+hardware.steer(20)
+time.sleep(0.5)
+hardware.steer(0)

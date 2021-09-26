@@ -66,8 +66,8 @@ def find_direction():
     cnt = []
     direction = None
 
-    while hardware.wait_button(ord(" ")):
-    # for i in range(10):
+    # while hardware.wait_button(ord(" ")):
+    for i in range(10):
         flag, img = hardware.get_frame()
         field = find_field(img[:400])
         delta_cnt = count(field)

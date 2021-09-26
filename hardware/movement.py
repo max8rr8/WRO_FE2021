@@ -7,8 +7,9 @@ import time
 wiringpi.pinMode(SERVO_PIN, wiringpi.GPIO.PWM_OUTPUT)
 wiringpi.pinMode(MOTOR_PIN, wiringpi.GPIO.PWM_OUTPUT)
 
-GPIO.setup(12, GPIO.OUT)
-pwm = GPIO.PWM(12, 50)
+GPIO.setup(16, GPIO.OUT)
+# GPIO.output(16, 0)
+pwm = GPIO.PWM(16, 50)
 
 wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
 wiringpi.pwmSetClock(192)
@@ -27,6 +28,7 @@ def stop():
 
 
 def steer(angle):
+    # print(angle)
     angle += CENTER_ANGLE
 
     if angle < LEFT_ANGLE:
@@ -44,6 +46,7 @@ def stop_center():
 
 
 def set_direction(direction):
+    # pass
     if direction:
         pwm.stop()
     else:

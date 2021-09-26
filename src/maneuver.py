@@ -14,6 +14,7 @@ def maneuver(angle, encoder_ticks):
     start_tick = hardware.read_encoder()
     cnt = 0
     while hardware.wait_button():
+        hardware.steer(angle)
         if ENABLE_MOTORS:
             hardware.forward()
         time.sleep(0.07)
@@ -42,3 +43,6 @@ def complex_maneuver(forward, angle, encoder_ticks):
     if forward > 0:
         maneuver(0, forward)
     maneuver(angle, encoder_ticks)
+
+    # hardware.stop_center()
+    # time.sleep(100000)

@@ -31,6 +31,7 @@ from hardware.encoder import *
 from hardware.movement import *
 
 def close_all():
+    print("EXITING")
     cap.release()
     stop_center()
     cv2.destroyAllWindows()

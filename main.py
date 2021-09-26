@@ -11,6 +11,7 @@ from src.utils import report_start
 from config import ENABLE_MOTORS, MANEUVERS, QUALIFICATION_SECTOR_BORDERS
 from config import POINT_SHIFT, QUALIFICATION_MODE, WALL_POINT
 from config import QUALIFICATION_WALL_POINT, QUALIFICATION_MANEUVER
+from consts import MARKER_RED
 
 ######################################################################################
 ######################################################################################
@@ -63,7 +64,7 @@ while hardware.wait_button():
 
         if current_sector in [1,2,3,4] and is_left_marker(marker, direction):
             print("SEEN", time.time() - last_left_seen)
-            if time.time() - last_left_seen > 1.5:
+            if time.time() - last_left_seen > 0.8:
                 add_count_marker()
                 print("DETECTED LEFT MARKER", get_count_markers(), time.time() - last_left_seen)
 
@@ -80,7 +81,9 @@ while hardware.wait_button():
     if ENABLE_MOTORS:
         hardware.forward()
 
-    if current_sector == 12 and hardware.read_encoder() > til_finish_ticks:
+    if current_sector == final_sector + 1 and hardware.read_encoder() > til_finish_ticks:
+
+        print("FINAL SECTORS", get_count_markers(), final_sector)
         hardware.stop_center()
         exit()
 
@@ -92,10 +95,11 @@ while hardware.wait_button():
         elif current_sector == 4 or current_sector == 8:
             print("FINAL SECTOR TOOK", hardware.read_encoder())
             final_sector_ticks += hardware.read_encoder()
-        elif current_sector == 8:
+        elif current_sector == 7:
             print("FINAL SECTOR", get_count_markers())
             final_sector += get_count_markers()
         elif current_sector == final_sector:
+            print("FINAL SECTORS", get_count_markers())
             til_finish_ticks = 800 # final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
@@ -117,8 +121,14 @@ while hardware.wait_button():
             last_marker = get_last_marker()
             side_marker = get_side_markers()
 
+
             print("Executing maneuver", direction, last_marker, side_marker)
             complex_maneuver(*MANEUVERS[direction][last_marker][side_marker])
+
+
+            if current_sector in [1,2,3,4] and side_marker == MARKER_RED:
+                add_count_marker()
+                last_left_seen = time.time()
 
         current_sector += 1
         hardware.reset_encoder()

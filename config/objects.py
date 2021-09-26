@@ -6,13 +6,13 @@ SIDE_RED = {
     'zone': ((54, 178), (302, 512)),
     'bin_min': (0, 0, 0),
     'bin_max': (30, 255, 255),
-    'area_min': 118,
+    'area_min': 50,
     'show_unbinarized': True
 }
 
 # Configuration for green side marker
 SIDE_GREEN = {
-    'zone': ((54, 178), (30, 190)),
+    'zone': ((54, 178), (15, 190)),
     'bin_min': (50, 100, 80),
     'bin_max': (90, 255, 255),
     'area_min': 30,
@@ -44,7 +44,7 @@ MAIN_LINE = {
 
 # Configuration for red marker
 RED_MARKER = {
-    'zone': ((129, 333), (35, 172)),
+    'zone': ((129, 333), (35, 200)),
     'bin_min': (0, 0, 0),
     'bin_max': (30, 255, 255),
     'area_min': 800
