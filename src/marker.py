@@ -8,12 +8,12 @@ from src.detection import detect_object
 
 def detect_side_markers(img, direction):
     if direction == DIRECTION_CW:
-        red_marker = detect_object(name="red_marker",
+        red_marker = detect_object(name="side_red_marker",
                                img=img,
                                **OBJECTS.SIDE_RED)
         return red_marker, (None, None)
     else:
-        green_marker = detect_object(name="green_marker",
+        green_marker = detect_object(name="side_green_marker",
                                  img=img,
                                  **OBJECTS.SIDE_GREEN)
 
@@ -40,8 +40,11 @@ def get_side_markers():
     current_marker_red = 0
     current_marker_green = 0
 
+    # for side_red, side_green in side_markers_memory:
+    #     print("SIDE OBJECTS", side_red[1], side_green[1])
+    
+
     for side_red, side_green in side_markers_memory[:3]:
-        print("SIDE OBJECTS", side_red[1], side_green[1])
         if side_red[0] is not None:
             current_marker_red += 1
         elif side_green[0] is not None:
@@ -90,10 +93,17 @@ def find_main_marker(img):
         last_marker_seen = time.time()
 
     ## BETA BETA BETA BETA untested
-    if marker == MARKER_NONE and (time.time() - last_marker_seen) < 1:
-        marker = last_marker
+    # if marker == MARKER_NONE and (time.time() - last_marker_seen) < 1:
+    #     marker = last_marker
 
     return marker
+
+def is_left_marker(marker, direction):
+    # if direction == DIRECTION_CW and marker == MARKER_GREEN:
+    #     return True
+    if marker == MARKER_RED:
+        return True
+    return False
 
 def get_last_marker():
     if time.time() - last_marker_seen > 1:
@@ -107,3 +117,12 @@ def led_marker(marker):
         hardware.led(0,1,0)
     else:
         hardware.led(0,0,1)
+
+
+count_of_markers = 0
+def add_count_marker():
+    global count_of_markers
+    count_of_markers += 1
+
+def get_count_markers():
+    return count_of_markers

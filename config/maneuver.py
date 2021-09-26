@@ -9,30 +9,30 @@ from consts import *
 MANEUVERS = {
     DIRECTION_CW: {
         MARKER_GREEN: {
-            MARKER_RED: (0, 50, 600), #ok
-            MARKER_NONE: (150, 50, 600), #ok
+            MARKER_RED: (10, 50, 500), 
+            MARKER_NONE: (150, 50, 600), 
         },
         MARKER_RED: {
-            MARKER_RED: (0, 50, 600), #ok
-            MARKER_NONE: (200, 50, 600), #ok
+            MARKER_RED: (70, 50, 500), 
+            MARKER_NONE: (200, 50, 500), 
         },
         MARKER_NONE: {
-            MARKER_RED: (0, 50, 600), #ok
-            MARKER_NONE: (100, 50, 600), #ok
+            MARKER_RED: (0, 50, 600), 
+            MARKER_NONE: (100, 50, 600),
         }
     },
     DIRECTION_CCW: {
         MARKER_GREEN: {
-            MARKER_GREEN: (0, -50, 600), #ok
-            MARKER_NONE: (150, -50, 600), #ok
+            MARKER_GREEN: (0, -50, 600), 
+            MARKER_NONE: (150, -50, 600), 
         },
         MARKER_RED: {
             MARKER_GREEN: (0, -50, 600),
-            MARKER_NONE: (150, -50, 600), #ok
+            MARKER_NONE: (150, -50, 600), 
         },
         MARKER_NONE: {
             MARKER_GREEN: (0, -50, 600),
-            MARKER_NONE: (100, -50, 600),
+            MARKER_NONE: (50, -50, 600),
         }
     }
 }

@@ -17,7 +17,10 @@ ROUNDER = 1 # UNUSED
 
 # уменьшать если скорость увеличиывем# Target point for wall movement (final mode), the bigger the more near to wall we move
 # WALL_POINT = 65 
-WALL_POINT = 59 
+WALL_POINT = {
+    DIRECTION_CW: 65,
+    DIRECTION_CCW: 59,
+}
 
 QUALIFICATION_WALL_POINT = 80  # Same as previous, but for qualification mode
 

@@ -33,22 +33,22 @@ def detect_object(name,
                   bin_max,
                   area_min,
                   show=True,
-                  show_unbinarized=False):
+                  show_unbinarized=True):
     img = crop(img, zone)
     contour = None
     area, cx, cy = (None, None, None)
 
     binarized = binarize(img, bin_min, bin_max)
     debug = cv2.cvtColor(binarized, cv2.COLOR_GRAY2BGR)
-
+    
     contours = cv2.findContours(binarized, cv2.RETR_TREE,
                                 cv2.CHAIN_APPROX_NONE)[0]
 
     if len(contours) > 0:
         cv2.drawContours(debug, contours, -1, (0, 255, 0), 1)
+        area = cv2.contourArea(contours[0])
         contours = list(
             filter(lambda c: cv2.contourArea(c) > area_min, contours))
-
         if len(contours) > 0:
             cv2.drawContours(debug, contours, -1, (0, 255, 0), 3)
 

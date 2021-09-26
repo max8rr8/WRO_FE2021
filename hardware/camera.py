@@ -15,6 +15,7 @@ def set_resolution(fullhd):
 
 
 def get_frame(show=True):
+    # flag, img = (True, cv2.imread("./t1.png"))
     flag, img = cap.read()
 
     if not flag:

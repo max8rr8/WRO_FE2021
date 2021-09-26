@@ -5,7 +5,7 @@ import hardware
 from src.rotate import should_start_rotate
 from src.maneuver import complex_maneuver
 from src.wall import capture_wall, wall, calculate_point
-from src.marker import find_main_marker, find_side_markers, get_last_marker, get_side_markers, led_marker
+from src.marker import get_count_markers, add_count_marker, is_left_marker, find_main_marker, find_side_markers, get_last_marker, get_side_markers, led_marker
 from src.direction import find_direction  #, recognize_direction
 from src.utils import report_start
 from config import ENABLE_MOTORS, MANEUVERS, QUALIFICATION_SECTOR_BORDERS
@@ -37,8 +37,14 @@ start_ticks = hardware.read_encoder()
 final_sector_ticks = 0
 print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
 
-hardware.forward(10)
-time.sleep(0.2)
+if ENABLE_MOTORS:
+    hardware.forward(10)
+    time.sleep(0.2)
+
+last_left_seen = 0
+count_of_markers = 0
+
+final_sector = 11
 
 while hardware.wait_button():
     start_time = time.time()
@@ -53,9 +59,19 @@ while hardware.wait_button():
 
     else:
         marker = find_main_marker(img)
+
+
+        if current_sector in [1,2,3,4] and is_left_marker(marker, direction):
+            print("SEEN", time.time() - last_left_seen)
+            if time.time() - last_left_seen > 1.5:
+                add_count_marker()
+                print("DETECTED LEFT MARKER", get_count_markers(), time.time() - last_left_seen)
+
+            last_left_seen = time.time()
+
         led_marker(marker)
         point_shift = POINT_SHIFT[marker]
-        point = calculate_point(direction, WALL_POINT, point_shift)
+        point = calculate_point(direction, WALL_POINT[direction], point_shift)
         # print("Marker", marker)
         wall(img, direction, point)
 
@@ -76,8 +92,11 @@ while hardware.wait_button():
         elif current_sector == 4 or current_sector == 8:
             print("FINAL SECTOR TOOK", hardware.read_encoder())
             final_sector_ticks += hardware.read_encoder()
-        elif current_sector == 11:
-            til_finish_ticks = 1000 # final_sector_ticks / 2 - til_finish_ticks - 260
+        elif current_sector == 8:
+            print("FINAL SECTOR", get_count_markers())
+            final_sector += get_count_markers()
+        elif current_sector == final_sector:
+            til_finish_ticks = 800 # final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:
@@ -93,7 +112,7 @@ while hardware.wait_button():
                 complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
             else:
                 print("Executing qualification base maneuver", direction)
-                complex_maneuver(*QUALIFICATION_MANEUVER[direction])
+                complex_maneuver(*QUALIFICATION_MANEUVER[direction], current_sector)
         else:
             last_marker = get_last_marker()
             side_marker = get_side_markers()
@@ -109,6 +128,7 @@ while hardware.wait_button():
         for i in range(5):
             a = hardware.get_frame()
             cv2.waitKey(10)
+        # last_left_seen = time.time()
         # if current_sector == 1:
         #     exit(1)
     

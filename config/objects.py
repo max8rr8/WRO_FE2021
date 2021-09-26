@@ -12,10 +12,10 @@ SIDE_RED = {
 
 # Configuration for green side marker
 SIDE_GREEN = {
-    'zone': ((54, 178), (0, 190)),
+    'zone': ((54, 178), (30, 190)),
     'bin_min': (50, 100, 80),
     'bin_max': (90, 255, 255),
-    'area_min': 50,
+    'area_min': 30,
     'show_unbinarized': True
 }
 
