@@ -1,6 +1,6 @@
 # White Storks, WRO FE Solution
 
-![Image of robot](https://i.imgur.com/vlE7K94.jpg)
+![Image of robot](./photos/0.jpg)
 
 ### Video
 Click to play
@@ -24,7 +24,14 @@ Our robot is made from following components:
 * 1x KY-016 RGB Full color led module
 * 1x 3D printed camera mount, stl file is `cam_mount_v2.0.stl`
 
-## [Photos](https://imgur.com/a/h5jWzw6)
+## Photos
+![1](./photos/1.jpeg)
+![2](./photos/2.jpeg)
+![3](./photos/3.jpeg)
+![4](./photos/4.jpeg)
+![5](./photos/5.jpeg)
+![6](./photos/6.jpeg)
+
 ## Electronics schematics
 ![Electronics schematics](https://i.imgur.com/Emthl2X.png)
 
@@ -192,5 +199,5 @@ Turn maneuvers are implemented in `src/maneuver.py`. There are two functions:
 
 # Team photos
 
-![Team 1](https://i.imgur.com/CBfWwj0.jpg)
-![Team 2](https://i.imgur.com/jpA29lM.jpg)
+![Team 1](./photos/t1.jpg)
+![Team 2](./photos/t2.jpg)
