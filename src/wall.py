@@ -57,10 +57,10 @@ def wall(img, direction, target_point):
     errold = err
 
     # print("PID U U U U Uu U", u)
-    # if u < -48:
-    #     u = -48
-    # elif u > 48:
-    #     u = 48
+    if u < -48:
+        u = -48
+    elif u > 48:
+        u = 48
 
     if direction == DIRECTION_CCW:
         u = -u

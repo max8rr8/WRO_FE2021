@@ -47,6 +47,8 @@ count_of_markers = 0
 
 final_sector = 11
 
+roro = 0
+
 while hardware.wait_button():
     start_time = time.time()
     flag, img = hardware.get_frame()
@@ -66,6 +68,9 @@ while hardware.wait_button():
             print("SEEN", time.time() - last_left_seen)
             if time.time() - last_left_seen > 0.8:
                 add_count_marker()
+
+                cv2.imwrite(f"red{roro}.png", img)
+                roro+=1
                 print("DETECTED LEFT MARKER", get_count_markers(), time.time() - last_left_seen)
 
             last_left_seen = time.time()
@@ -125,10 +130,14 @@ while hardware.wait_button():
             print("Executing maneuver", direction, last_marker, side_marker)
             complex_maneuver(*MANEUVERS[direction][last_marker][side_marker])
 
+            if side_marker == MARKER_RED:
+                last_left_seen = time.time()
 
             if current_sector in [1,2,3,4] and side_marker == MARKER_RED:
                 add_count_marker()
-                last_left_seen = time.time()
+                flag, img = hardware.get_frame()
+                cv2.imwrite(f"red{roro}.png", img)
+                roro+=1
 
         current_sector += 1
         hardware.reset_encoder()

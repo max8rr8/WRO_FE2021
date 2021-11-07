@@ -31,11 +31,11 @@ def steer(angle):
     # print(angle)
     angle += CENTER_ANGLE
 
-    if angle < LEFT_ANGLE:
-        angle = LEFT_ANGLE
+    # if angle < LEFT_ANGLE:
+    #     angle = LEFT_ANGLE
 
-    if angle >= RIGHT_ANGLE:
-        angle = RIGHT_ANGLE
+    # if angle >= RIGHT_ANGLE:
+    #     angle = RIGHT_ANGLE
 
     wiringpi.pwmWrite(SERVO_PIN, int(angle))
 

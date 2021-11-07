@@ -14,7 +14,7 @@ MANEUVERS = {
         },
         MARKER_RED: {
             MARKER_RED: (0, 50, 500), 
-            MARKER_NONE: (200, 50, 500), 
+            MARKER_NONE: (350, 50, 500), 
         },
         MARKER_NONE: {
             MARKER_RED: (0, 50, 500), 
