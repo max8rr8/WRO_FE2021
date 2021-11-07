@@ -32,8 +32,9 @@ Our robot is made from following components:
 ![5](./photos/5.jpeg)
 ![6](./photos/6.jpeg)
 
-## Electronics schematics
-![Electronics schematics](https://i.imgur.com/Emthl2X.png)
+## Schematics
+![Schematics](./schematics/s1.jpg)
+![Electronics schematics](./schematics/s2.jpg)
 
 # Software
 
