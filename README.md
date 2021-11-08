@@ -2,10 +2,12 @@
 
 ![Image of robot](./photos/0.jpg)
 
-### Video
-Click to play
+## Videos
 
-[![Alt text](https://img.youtube.com/vi/N_jFORARUJI/0.jpg)](https://www.youtube.com/watch?v=N_jFORARUJI)
+### [Qualification round](https://youtu.be/TMEs1yODBv8)
+### [Final round](https://youtu.be/N_jFORARUJI)
+
+
 # Hardware
 
 Our robot is made from following components:
