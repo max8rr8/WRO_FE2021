@@ -65,7 +65,7 @@ while hardware.wait_button():
 
 
         if current_sector in [1,2,3,4] and is_left_marker(marker, direction):
-            print("SEEN", time.time() - last_left_seen)
+            # print("SEEN", time.time() - last_left_seen)
             if time.time() - last_left_seen > 0.8:
                 add_count_marker()
 
@@ -77,7 +77,7 @@ while hardware.wait_button():
 
         led_marker(marker)
         point_shift = POINT_SHIFT[marker]
-        point = calculate_point(direction, WALL_POINT[direction], point_shift)
+        point = calculate_point(direction, start_wall_point if current_sector == 12 else WALL_POINT[direction], point_shift)
         # print("Marker", marker)
         wall(img, direction, point)
 
@@ -102,10 +102,10 @@ while hardware.wait_button():
             final_sector_ticks += hardware.read_encoder()
         elif current_sector == 7:
             print("FINAL SECTOR", get_count_markers())
-            final_sector += get_count_markers()
+            # final_sector += get_count_markers()
         elif current_sector == final_sector:
             print("FINAL SECTORS", get_count_markers())
-            til_finish_ticks = 800 # final_sector_ticks / 2 - til_finish_ticks - 260
+            til_finish_ticks = 1000 # final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
             if current_sector % 4 == 3:
@@ -121,7 +121,7 @@ while hardware.wait_button():
                 complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
             else:
                 print("Executing qualification base maneuver", direction)
-                complex_maneuver(*QUALIFICATION_MANEUVER[direction], current_sector)
+                complex_maneuver(*QUALIFICATION_MANEUVER[direction])
         else:
             last_marker = get_last_marker()
             side_marker = get_side_markers()
