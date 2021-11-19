@@ -15,7 +15,7 @@ SIDE_GREEN = {
     'zone': ((54, 178), (15, 190)),
     'bin_min': (68, 209, 37),
     'bin_max': (96, 255, 74),
-    'area_min': 30,
+    'area_min': 500,
     'show_unbinarized': True
 }
 
@@ -37,8 +37,8 @@ MAIN_LINE = {
     DIRECTION_CCW: { # BLUE LINE
 
     'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
-    'bin_min': (78, 163, 100),
-    'bin_max': (140, 255, 135),
+    'bin_min': (83, 168, 58),
+    'bin_max': (114, 255, 255),
     'area_min': 50
     }
 }

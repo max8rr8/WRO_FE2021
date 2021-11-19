@@ -24,14 +24,14 @@ MANEUVERS = {
     DIRECTION_CCW: {
         MARKER_GREEN: {
             MARKER_GREEN: (0, -50, 500), 
-            MARKER_NONE: (280, -50, 500), 
+            MARKER_NONE: (320, -50, 500), 
         },
         MARKER_RED: {
             MARKER_GREEN: (0, -50, 450),
             MARKER_NONE: (150, -50, 500), 
         },
         MARKER_NONE: {
-            MARKER_GREEN: (50, -50, 500),
+            MARKER_GREEN: (0, -50, 500),
             MARKER_NONE: (150, -50, 500),
         }
     }

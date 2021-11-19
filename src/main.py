@@ -29,8 +29,6 @@ for i in range(7):
 
 start_wall_point = capture_wall(direction)
 print(start_wall_point)
-if start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
-    start_wall_point = WALL_POINT
 
 current_sector = 0
 
@@ -40,7 +38,7 @@ print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
 
 if ENABLE_MOTORS:
     hardware.forward(10)
-    time.sleep(0.4)
+    time.sleep(0.2)
 
 last_left_seen = 0
 count_of_markers = 0
@@ -57,7 +55,7 @@ while hardware.wait_button():
     if QUALIFICATION_MODE:
         hardware.led(0, 0, 1)
         wall(
-            img, direction, QUALIFICATION_WALL_POINT)
+            img, direction, (start_wall_point + 15) if current_sector == 0 else QUALIFICATION_WALL_POINT)
 
     else:
         marker = find_main_marker(img)
@@ -128,7 +126,8 @@ while hardware.wait_button():
 
             print("Executing maneuver", direction, last_marker, side_marker)
             complex_maneuver(*MANEUVERS[direction][last_marker][side_marker])
-
+            hardware.stop_center()
+            exit()
             if side_marker == MARKER_RED:
                 last_left_seen = time.time()
 
