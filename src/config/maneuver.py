@@ -42,8 +42,8 @@ MANEUVERS = {
 # Dict are aranged in following format:
 #   Direction:
 QUALIFICATION_MANEUVER = {
-    DIRECTION_CW: (300, 50, 500),
-    DIRECTION_CCW: (280, -50, 500),
+    DIRECTION_CW: (180, 50, 500),
+    DIRECTION_CCW: (180, -50, 500),
 }
 
 # Manuvers for pre-final qualification turns (for 3, 7, 11 section)

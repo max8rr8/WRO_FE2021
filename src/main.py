@@ -40,7 +40,7 @@ print("Direction:", direction, " Mode:", QUALIFICATION_MODE)
 
 if ENABLE_MOTORS:
     hardware.forward(10)
-    time.sleep(0.2)
+    time.sleep(0.4)
 
 last_left_seen = 0
 count_of_markers = 0
@@ -57,8 +57,7 @@ while hardware.wait_button():
     if QUALIFICATION_MODE:
         hardware.led(0, 0, 1)
         wall(
-            img, direction, start_wall_point if current_sector %
-            4 == 0 else QUALIFICATION_WALL_POINT)
+            img, direction, QUALIFICATION_WALL_POINT)
 
     else:
         marker = find_main_marker(img)
@@ -105,23 +104,23 @@ while hardware.wait_button():
             # final_sector += get_count_markers()
         elif current_sector == final_sector:
             print("FINAL SECTORS", get_count_markers())
-            til_finish_ticks = 1000 # final_sector_ticks / 2 - til_finish_ticks - 260
+            til_finish_ticks = 1100 # final_sector_ticks / 2 - til_finish_ticks - 260
 
         if QUALIFICATION_MODE:
-            if current_sector % 4 == 3:
-                if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
-                    side_sector = -1
-                elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
-                    side_sector = +1
-                else:
-                    side_sector = 0
+            # if current_sector % 4 == 3:
+            #     if start_wall_point > QUALIFICATION_SECTOR_BORDERS[1]:
+            #         side_sector = -1
+            #     elif start_wall_point < QUALIFICATION_SECTOR_BORDERS[0]:
+            #         side_sector = +1
+            #     else:
+            #         side_sector = 0
 
-                print("Executing qualification pre-final maneuver", direction, side_sector)
+            #     print("Executing qualification pre-final maneuver", direction, side_sector)
 
-                complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
-            else:
-                print("Executing qualification base maneuver", direction)
-                complex_maneuver(*QUALIFICATION_MANEUVER[direction])
+            #     complex_maneuver(*QUALIFICATION_PRE_FINAL_MANEUVER[direction][side_sector])
+            # else:
+            print("Executing qualification base maneuver", direction)
+            complex_maneuver(*QUALIFICATION_MANEUVER[direction])
         else:
             last_marker = get_last_marker()
             side_marker = get_side_markers()

@@ -31,13 +31,13 @@ MAIN_LINE = {
     'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
 
     'bin_min': (10, 28, 69),
-    'bin_max': (85, 155, 155),
+    'bin_max': (75, 155, 155),
     'area_min': 50
     }, 
     DIRECTION_CCW: { # BLUE LINE
 
-    'zone':  ((170, 320), (60, 360)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
-    'bin_min': (78, 163, 30),
+    'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
+    'bin_min': (78, 163, 100),
     'bin_max': (140, 255, 135),
     'area_min': 50
     }
