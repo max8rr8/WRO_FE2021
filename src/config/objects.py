@@ -3,19 +3,19 @@ from config.config import QUALIFICATION_MODE
 
 # Configuration for red side marker
 SIDE_RED = {
-    'zone': ((54, 178), (302, 512)),
-    'bin_min': (0, 102, 35),
-    'bin_max': (17, 226, 65),
+    'zone': ((54, 178), (100, 512)),
+    'bin_min': (0, 50, 35),
+    'bin_max': (28, 256, 100),
     'area_min': 50,
     'show_unbinarized': True
 }
 
 # Configuration for green side marker
 SIDE_GREEN = {
-    'zone': ((54, 178), (15, 190)),
+    'zone': ((54, 178), (0, 190)),
     'bin_min': (68, 209, 37),
     'bin_max': (96, 255, 74),
-    'area_min': 500,
+    'area_min': 50,
     'show_unbinarized': True
 }
 
@@ -32,30 +32,30 @@ MAIN_LINE = {
 
     'bin_min': (10, 28, 69),
     'bin_max': (75, 155, 155),
-    'area_min': 5
+    'area_min': 50
     }, 
     DIRECTION_CCW: { # BLUE LINE
 
-    'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (220, 240)),
-    'bin_min': (92, 148, 47),
-    'bin_max': (115, 255, 107),
+    'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
+
+    'bin_min': (93, 159, 55),
+    'bin_max': (114, 255, 144),
     'area_min': 50
     }
 }
 
 # Configuration for red marker
 RED_MARKER = {
-    'zone': ((129, 333), (0, 300)),
+    'zone': ((80, 333), (35, 200)),
     'bin_min': (0, 0, 0),
     'bin_max': (30, 255, 255),
-    'area_min': 500
+    'area_min': 700
 }
 
 # Configuration for green marker
 GREEN_MARKER = {
-    
-    'zone': ((44, 262), (240, 500)),
+    'zone': ((44, 262), (246, 425)),
     'bin_min': (61, 212, 47),
     'bin_max': (92, 255, 96),
-    'area_min': 700
+    'area_min': 1300
 }

@@ -8,14 +8,32 @@ from consts import *
 #           Next(side) marker:
 MANEUVERS = {
     DIRECTION_CW: {
-        MARKER_GREEN: (0, 50, 500),
-        MARKER_RED: (200, 50, 500),
-        MARKER_NONE: (0, 50, 500)
+        MARKER_GREEN: {
+            MARKER_RED: (0, 50, 450), 
+            MARKER_NONE: (150, 50, 400), 
+        },
+        MARKER_RED: {
+            MARKER_RED: (50, 50, 400), 
+            MARKER_NONE: (300, 50, 500), 
+        },
+        MARKER_NONE: {
+            MARKER_RED: (0, 50, 400), 
+            MARKER_NONE: (150, 50, 400),
+        }
     },
     DIRECTION_CCW: {
-        MARKER_GREEN: (0, -50, 250),
-        MARKER_RED: (150, -50, 300),
-        MARKER_NONE: (0, -50, 250)
+        MARKER_GREEN: {
+            MARKER_GREEN: (0, -50, 400), 
+            MARKER_NONE: (350, -50, 400), 
+        },
+        MARKER_RED: {
+            MARKER_GREEN: (0, -50, 400),
+            MARKER_NONE: (200, -50, 400), 
+        },
+        MARKER_NONE: {
+            MARKER_GREEN: (20, -50, 400),
+            MARKER_NONE: (300, -50, 400),
+        }
     }
 }
 
@@ -35,13 +53,13 @@ QUALIFICATION_MANEUVER = {
 #      Sector to finish in (-1 near to outer wall, 0 for central sector, 1 for inner wall):
 QUALIFICATION_PRE_FINAL_MANEUVER = {
     DIRECTION_CW: {
-        -1: (250, 50, 500),  #OK2
-        00: (150, 50, 600),
-        +1: (0, 50, 700)  # BROKEN
+        -1: (250, 50, 500), #OK2
+        00: (150, 50, 600), 
+        +1: (0, 50, 700) # BROKEN
     },
     DIRECTION_CCW: {
         -1: (280, -50, 500),
-        00: (50, -50, 600),
-        +1: (0, -50, 700)  # BROKEN
+        00: (50, -50, 600), 
+        +1: (0, -50, 700) # BROKEN
     },
 }
