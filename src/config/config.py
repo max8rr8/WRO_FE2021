@@ -10,7 +10,7 @@ if QUALIFICATION_MODE: # QUALIFICATION
     KD = 3 #для большей скорости увеличивать # PID differential coefficient
 else: # FINAL
     KP = 1.5 # PID proportional coefficient
-    KD = 2#для большей скорости увеличивать # PID differential coefficient
+    KD = 3 #для большей скорости увеличивать # PID differential coefficient
 
 
 ROUNDER = 1 # UNUSED

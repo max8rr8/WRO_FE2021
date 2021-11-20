@@ -126,8 +126,8 @@ while hardware.wait_button():
 
             print("Executing maneuver", direction, last_marker, side_marker)
             complex_maneuver(*MANEUVERS[direction][last_marker][side_marker])
-            hardware.stop_center()
-            exit()
+            # hardware.stop_center()
+            # exit()
             if side_marker == MARKER_RED:
                 last_left_seen = time.time()
 
@@ -142,9 +142,9 @@ while hardware.wait_button():
 
         img = None
 
-        for i in range(5):
+        for i in range(10):
             a = hardware.get_frame()
-            cv2.waitKey(10)
+            cv2.waitKey(1)
         # last_left_seen = time.time()
         # if current_sector == 1:
         #     exit(1)

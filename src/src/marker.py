@@ -44,7 +44,7 @@ def get_side_markers():
         print("SIDE OBJECTS", side_red[1], side_green[1])
     
 
-    for side_red, side_green in side_markers_memory[:3]:
+    for side_red, side_green in side_markers_memory[:5]:
         if side_red[0] is not None:
             current_marker_red += 1
         elif side_green[0] is not None:
@@ -53,6 +53,7 @@ def get_side_markers():
             current_marker_none += 1
 
     ma = max(current_marker_none, current_marker_red, current_marker_green)
+    print(ma, current_marker_green, current_marker_green, current_marker_none)
     if ma == current_marker_red:
         return MARKER_RED
     elif ma == current_marker_green:
