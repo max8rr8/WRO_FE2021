@@ -16,8 +16,8 @@ def should_start_rotate(img, direction):
     if not main_line:
         return False
 
-    # print(time.time() - last_seen)
-    if time.time() - last_seen < 1.5:
+    print("LINE", time.time() - last_seen)
+    if time.time() - last_seen < 1:
         return False
     cv2.imwrite(f"r{rotat}.png", img)
     rotat += 1

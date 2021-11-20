@@ -93,7 +93,7 @@ def find_main_marker(img):
         last_marker_seen = time.time()
 
     ## BETA BETA BETA BETA untested
-    # if marker == MARKER_NONE and (time.time() - last_marker_seen) < 1:
+    # if marker == MARKER_NONE and (time.time() - last_marker_seen) < 0.2:
     #     marker = last_marker
 
     return marker

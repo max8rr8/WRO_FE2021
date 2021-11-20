@@ -21,7 +21,7 @@ def maneuver(angle, encoder_ticks):
         current_tick = hardware.read_encoder()
         
         #### BETA BETA BETA Unteseted
-        flag, img = hardware.get_frame()
+        # flag, img = hardware.get_frame()
         # marker = find_main_marker(img)
 
 

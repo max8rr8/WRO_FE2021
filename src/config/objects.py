@@ -32,29 +32,30 @@ MAIN_LINE = {
 
     'bin_min': (10, 28, 69),
     'bin_max': (75, 155, 155),
-    'area_min': 50
+    'area_min': 5
     }, 
     DIRECTION_CCW: { # BLUE LINE
 
-    'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (200, 240)),
-    'bin_min': (83, 168, 58),
-    'bin_max': (114, 255, 255),
+    'zone':  ((170, 320), (150, 345)) if QUALIFICATION_MODE else ((170, 280), (220, 240)),
+    'bin_min': (92, 148, 47),
+    'bin_max': (115, 255, 107),
     'area_min': 50
     }
 }
 
 # Configuration for red marker
 RED_MARKER = {
-    'zone': ((129, 333), (35, 200)),
+    'zone': ((129, 333), (0, 300)),
     'bin_min': (0, 0, 0),
     'bin_max': (30, 255, 255),
-    'area_min': 700
+    'area_min': 500
 }
 
 # Configuration for green marker
 GREEN_MARKER = {
-    'zone': ((44, 262), (246, 425)),
+    
+    'zone': ((44, 262), (240, 500)),
     'bin_min': (61, 212, 47),
     'bin_max': (92, 255, 96),
-    'area_min': 1300
+    'area_min': 700
 }
