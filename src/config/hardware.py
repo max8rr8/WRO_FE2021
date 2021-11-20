@@ -11,4 +11,4 @@ BASE_SPEED = 1170 # Speed of robot(pwm value), from 0  to 2000
 QUALIFICATION_SPEED = 1400 # Same as previus, but for quallification
 
 
-DO_WAIT = True # PAUSE HARDWARE UNTIL BUTTON PUSH
+DO_WAIT = False # PAUSE HARDWARE UNTIL BUTTON PUSH

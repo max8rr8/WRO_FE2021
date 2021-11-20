@@ -54,9 +54,8 @@ def set_steer_control(event, x, y, flags, param):
 
 cv2.setMouseCallback("Control", set_steer_control)
 
-cv2.createTrackbar("Angle", "Control", 0, 50, lambda x: x)
-cv2.setTrackbarMin("Angle", "Control", -50)
-cv2.setTrackbarPos("Angle", "Control", 0)
+cv2.createTrackbar("Angle", "Control", 0, 100, lambda x: x)
+cv2.setTrackbarPos("Angle", "Control", 50)
 
 #############
 detection_params = {
@@ -350,7 +349,7 @@ while True:
                        cv2.getTrackbarPos("Angle", "Control") + 25)
 
   elif key == ord("e"):
-    cv2.setTrackbarPos("Angle", "Control", 0)
+    cv2.setTrackbarPos("Angle", "Control", 50)
 
   elif key == ord("q"):
     steer_status = "STOP"
@@ -365,7 +364,7 @@ while True:
     hardware.set_direction(False)
     hardware.stop()
 
-  hardware.steer(cv2.getTrackbarPos("Angle", "Control"))
+  hardware.steer(cv2.getTrackbarPos("Angle", "Control") - 50)
 
   if key != -1:
     print(key, steer_status)

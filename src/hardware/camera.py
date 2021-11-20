@@ -12,7 +12,10 @@ def set_resolution(fullhd):
     else:
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 384)
-
+        
+def set_custom_resolution(r):
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 def get_frame(show=True):
     # flag, img = (True, cv2.imread("./r0.png"))
@@ -21,7 +24,7 @@ def get_frame(show=True):
     if not flag:
         return flag, None
 
-    if img.shape[0] != 1080:
+    if img.shape[0] == 512:
         img = img[:, :440]
 
     if show:
